@@ -79,6 +79,46 @@ This layer will provide RESTful APIs for the clock in operation, follow and unfo
 | POST        | `/api/v1/users/sign_in`              | Sign in a user                              |
 | DELETE      | `/api/v1/users/sign_out`             | Sign out a user                             |
 
+##### User List
+
+| Endpoint        | HTTP Method | Request Body | Success Response              | Error Response            |
+| --------------- | ----------- | ------------ | ----------------------------- | ------------------------- |
+| `/api/v1/users` | `GET`       | None         | [Success JSON](#success-json) | [Error JSON](#error-json) |
+
+##### Success
+
+```json
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "John Doe",
+      "email": "john.doe@example.com",
+      "created_at": "2023-01-01T00:00:00.000Z",
+      "updated_at": "2023-01-01T00:00:00.000Z"
+    },
+    {
+      "id": 2,
+      "name": "Jane Doe",
+      "email": "jane.doe@example.com",
+      "created_at": "2023-01-02T00:00:00.000Z",
+      "updated_at": "2023-01-02T00:00:00.000Z"
+    }
+  ],
+  "user_count": 2,
+  "followers_count": 1,
+  "followings_count": 1
+}
+```
+
+##### Error Messages
+
+```json
+{
+  "error": "You need to sign in or sign up before continuing."
+}
+```
+
 #### Application Logic Layer:
 
 This layer will contain the business logic of the application, including the calculation of sleep cycle length, sorting of sleep records, and determining which sleep records to return based on the following relationship between users. The application logic layer will be implemented using the Ruby on Rails framework.
