@@ -61,21 +61,19 @@ In summary, we want to build a "good night" application that allows users to tra
 
 ### Introduction
 
-This Software Design Document (SDD) provides a comprehensive overview of the design of the "Good Night App" application, which aims to help users track their sleep patterns. The application will be built using the Ruby on Rails framework and will provide RESTful APIs for the required operations. The application will have two main models, User and SleepRecord, and will use database migrations to create the required tables in the database.
+The "Good Night App" is an application designed to help users track their sleep patterns. It is built using the Ruby on Rails framework and utilizes RESTful APIs for various operations. The main focus of the app is to provide users with a tool that allows them to clock in and out of their sleep cycles, follow and unfollow other users, and view the sleep records of their friends over the past week.
 
-The "Good Night App" application will allow users to track their sleep patterns and perform various operations. Users will be able to clock in and out of their sleep cycles, follow and unfollow other users, and view the sleep records of their friends over the past week. The application will provide a secure and user-friendly interface, allowing users to easily navigate the features and functionalities.
+The application has two primary models, User and SleepRecord, and uses database migrations to create the required tables in the database. It offers a secure and user-friendly interface so that users can easily navigate its features and functionalities.
 
-The clock in operation will allow users to start and end their sleep cycles. When users clock out, the application will calculate the length of the sleep cycle and store it in the database. The application will also return all clocked-in times, ordered by created time, allowing users to view their sleep patterns over time.
+One of the main features of the app is the clock-in operation, which enables users to start and end their sleep cycles. Once a user clocks out, the app calculates the length of the sleep cycle and stores it in the database. It then displays all clocked-in times, ordered by created time, for users to observe their sleep patterns over time.
 
-The follow and unfollow feature will allow users to connect with other users and view their sleep records. The application will store the following relationship between the two users, allowing users to follow and unfollow other users as desired.
+Another feature of the app is the follow and unfollow function. This allows users to connect with others and view their sleep records, by storing the relationship between the two users.
 
-The sleep records feature will allow users to view the sleep records of their friends over the past week. The application will return a list of sleep records that contain the start time, end time, and length of sleep, as well as the name of the user who slept during that period. The application will only return sleep records for users who the requester is following, ensuring the privacy and security of the users' data.
-
-This SDD will describe the architecture, design, and implementation of the "Good Night App" application in detail, providing a comprehensive guide for developers, testers, and other stakeholders. By following the design outlined in this document, we aim to create a high-quality, robust, and reliable application that meets the needs of our users.
+The sleep records feature lets users view their friends' sleep records from the past week. The app returns a list of sleep records containing the start time, end time, and length of sleep, as well as the name of the user who slept during that period. It ensures the privacy and security of users' data by only displaying sleep records for users who the requester is following.
 
 ### Getting Started
 
-To run the Ruby on Rails app from the GitHub repository git@github.com:raketbizdev/GoodNightApp.git, follow these steps:
+To run the Ruby on Rails app from the GitHub repository `git@github.com:raketbizdev/GoodNightApp.git`, follow these steps:
 
 **Note:** These instructions assume you have Git, Ruby, Rails, and a PostgreSQL database installed on your local machine.
 
