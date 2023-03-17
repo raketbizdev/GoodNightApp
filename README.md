@@ -119,6 +119,49 @@ This layer will provide RESTful APIs for the clock in operation, follow and unfo
 }
 ```
 
+##### User Follow
+
+| Endpoint                   | HTTP Method | Request Body | Success Response                     | Error Response                   |
+| -------------------------- | ----------- | ------------ | ------------------------------------ | -------------------------------- |
+| `/api/v1/users/:id/follow` | `POST`      | None         | [Success JSON](#success-json-follow) | [Error JSON](#error-json-follow) |
+
+##### User Follow Request
+
+```json
+`{{BASE_URL}}/api/v1/users/:id/follow`
+```
+
+##### Success JSON (follow)
+
+```json
+{
+  "success": true,
+  "message": "You are now following user@example.com."
+}
+```
+
+##### Error JSON (follow)
+
+```json
+[
+  {
+    "success": false,
+    "error": "User not found.",
+    "status": "not_found"
+  },
+  {
+    "success": false,
+    "error": "You cannot follow yourself.",
+    "status": "unprocessable_entity"
+  },
+  {
+    "success": false,
+    "error": "You are already following this user.",
+    "status": "unprocessable_entity"
+  }
+]
+```
+
 #### Application Logic Layer:
 
 This layer will contain the business logic of the application, including the calculation of sleep cycle length, sorting of sleep records, and determining which sleep records to return based on the following relationship between users. The application logic layer will be implemented using the Ruby on Rails framework.
