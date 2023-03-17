@@ -58,6 +58,67 @@ The sleep records feature will allow users to view the sleep records of their fr
 
 This SDD will describe the architecture, design, and implementation of the "Good Night App" application in detail, providing a comprehensive guide for developers, testers, and other stakeholders. By following the design outlined in this document, we aim to create a high-quality, robust, and reliable application that meets the needs of our users.
 
+### Getting Started
+
+To run the Ruby on Rails app from the GitHub repository git@github.com:raketbizdev/GoodNightApp.git, follow these steps:
+
+**Note:** These instructions assume you have Git, Ruby, Rails, and a PostgreSQL database installed on your local machine.
+
+1. Clone the repository:
+   Open a terminal/command prompt and run the following command:
+
+   ```bash
+    git clone git@github.com:raketbizdev/GoodNightApp.git
+   ```
+
+   This command will create a new directory named GoodNightApp containing the repository files.
+
+2. Change to the project directory:
+
+   ```bash
+    cd GoodNightApp
+   ```
+
+3. Install dependencies:
+   Install the required gems using Bundler:
+
+   ```bash
+    bundle install
+   ```
+
+4. Configure the database:
+   Open the `config/database.yml` file and modify the `username`, `password`, and other `database settings` to match your local PostgreSQL configuration.
+
+5. Create and setup the database:
+   Run the following command to create the database, load the schema, and seed the data:
+
+   ```bash
+    rails db:create db:migrate db:seed
+   ```
+
+6. Start the Rails server:
+   Start the Rails server by running:
+
+   ```bash
+    rails server
+   ```
+
+7. Access the application:
+   Open your web browser and navigate to `http://
+   you should see something below.
+
+   ```json
+   {
+     "status": "ok",
+     "message": "Welcome to Good Night API!"
+   }
+   ```
+
+8. Visit Postmant:
+   To start playing with the endpoints
+
+   [![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/23592113-29316bb0-524f-4a34-89e4-a192bb86c7a4?action=collection%2Ffork&collection-url=entityId%3D23592113-29316bb0-524f-4a34-89e4-a192bb86c7a4%26entityType%3Dcollection%26workspaceId%3D68366fbd-068a-4d58-bda2-aa1377bb68a7)
+
 ### System architecture
 
 #### API Layer:
