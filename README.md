@@ -295,15 +295,6 @@ This layer will store the data required by the application, including user profi
 
 **jwt_denylist** table: This table stores JSON Web Token (JWT) denylist entries, which are used to track and deny access to invalidated JWTs. The table contains a jti (JWT ID) column and an exp (expiration time) column. There is an index on the jti column.
 
-Database Diagram
+##### Database Diagram
 
-To embed an image in markdown, you can use the following syntax:
-
-less
-Copy code
-![Alt text](image_path "Optional title")
-Here's an example using the image link you provided:
-
-less
-Copy code
 ![Good Night App Database Schema](goodnight_db.png "Good Night App Database Schema")
