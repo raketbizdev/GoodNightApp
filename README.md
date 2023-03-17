@@ -4,16 +4,18 @@
 
 - [Original Instructions](#original-instructions)
 - [Business Requirements](#busines-requirements-based-on-the-current-instruction)
+  - [Project Description](#project-description)
   - [Technical Requirements](#technical-requirements)
 - [Software Design Document (SDD)](#software-design-document)
   - [Introduction](#introduction)
   - [Getting Started](#getting-started)
   - [System Architecture](#system-architecture)
-- [API Layer](#api-layer)
-  - [Application Logic Layer](#application-logic-layer)
-  - [RSPEC Testing Methods](#rspec-testing-methods)
-- [Data Storage Layer](#data-storage-layer)
-- [Database Diagram](#database-diagram)
+    - [API Layer](#api-layer)
+    - [Application Logic Layer](#application-logic-layer)
+    - [RSPEC Testing Methods](#rspec-testing-methods)
+    - [Data Storage Layer](#data-storage-layer)
+    - [Database Diagram](#database-diagram)
+- [Conclusion](#Conclusion)
 
 ## Original Instructions
 
@@ -52,10 +54,6 @@ The following are the technical requirements for the application:
 2. **Database Migrations:** The application should use database migrations to create the User and SleepRecord tables in the database.
 3. **JSON API:** The application should provide a RESTful JSON API that allows users to perform the required operations.
 4. **Security:** The application should be secure and only allow authenticated users to access the API. Users should only be able to access their own data or the data of users they are following.
-
-### Conclusion:
-
-In summary, we want to build a "good night" application that allows users to track their sleep patterns. The application will use the Ruby on Rails framework and provide RESTful APIs for the required operations. The application will have two models, User and SleepRecord, and use database migrations to create the required tables in the database. The application will also provide a JSON API and be secure, allowing only authenticated users to access the API and restricting access to data based on the following relationships.
 
 ## Software Design Document
 
@@ -311,5 +309,7 @@ This layer will store the data required by the application, including user profi
 ##### Database Diagram
 
 ![Good Night App Database Schema](goodnight_db.png "Good Night App Database Schema")
+
+## Conclusion
 
 To whoever reviews my code, I would like to express my appreciation for your time and effort in examining the "Good Night" application. Your feedback and suggestions are valuable to me, and I am committed to using them to improve the application and provide a better experience for our users. Thank you for your attention and support.
