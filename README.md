@@ -64,6 +64,10 @@ This SDD will describe the architecture, design, and implementation of the "Good
 
 This layer will provide RESTful APIs for the clock in operation, follow and unfollow other users, and sleep records over the past week. The API layer will be implemented using the Ruby on Rails framework and will communicate with the database layer to fetch and store data.
 
+Postman Collections
+
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/23592113-29316bb0-524f-4a34-89e4-a192bb86c7a4?action=collection%2Ffork&collection-url=entityId%3D23592113-29316bb0-524f-4a34-89e4-a192bb86c7a4%26entityType%3Dcollection%26workspaceId%3D68366fbd-068a-4d58-bda2-aa1377bb68a7)
+
 | HTTP Method | Endpoint                             | Description                                 |
 | ----------- | ------------------------------------ | ------------------------------------------- |
 | GET         | `/api/v1/users`                      | Retrieve a list of all users                |
