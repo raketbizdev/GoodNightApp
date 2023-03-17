@@ -1,13 +1,20 @@
 FactoryBot.define do
   factory :user do
     email { Faker::Internet.email }
-    password { 'password123' }
-    password_confirmation { 'password123' }
+    password { 'password' }
+    password_confirmation { 'password' }
 
-    before(:create) do |user|
-      user.jti = SecureRandom.uuid
-      user.save!
-      user.token = Warden::JWTAuth::UserEncoder.new.call(user, :user, nil)
+    transient do
+      token { nil }
+    end
+
+    after(:create) do |user, evaluator|
+      if evaluator.token.present?
+        user.token = evaluator.token
+      else
+        user.token = Warden::JWTAuth::UserEncoder.new.call(user, :user, nil)
+      end
+      create(:profile, user: user)
     end
   end
 end

@@ -39,3 +39,6 @@ en:
           logged_in: "You are logged in."
           invalid_email_password: "Invalid email or password."
           logged_out: "You are logged out."
+          already_signed_in: "You are already signed in."
+          current_user_login: "Please logout first if you want to login with a different user."
+          mismatched_email: "The email address is not the same as the password."

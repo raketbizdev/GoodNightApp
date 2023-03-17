@@ -9,6 +9,8 @@ class User < ApplicationRecord
 
   validates :email, presence: true, uniqueness: true, format: { with: VALID_EMAIL_REGEX }
 
+  attr_accessor :token
+
   has_one :profile, dependent: :destroy
   has_many :sleeps, dependent: :destroy
 
@@ -61,11 +63,12 @@ class User < ApplicationRecord
   # Returns the user summary including the sleep summary data.
   def user_summary
     sleep_summary_data = sleep_summary
+    profile_name = profile.present? ? profile.full_name : nil
 
     {
       id: id,
       email: email,
-      full_name: profile.full_name,
+      full_name: profile_name,
       followers_count: followers.count,
       followings_count: following.count,
       sleep_duration: sleep_summary_data[:total_duration],
@@ -74,10 +77,18 @@ class User < ApplicationRecord
     }
   end
 
+  def generate_jwt_token
+    # Generate a JWT token for the user
+    JWT.encode({ user_id: id }, Rails.application.secrets.secret_key_base, 'HS256')
+  end
+
+
   private
 
   # Creates a profile for the user after registration.
   def create_profile
-    Profile.create(user_id: self.id)
+    profile = Profile.new(user_id: self.id)
   end
+
+
 end

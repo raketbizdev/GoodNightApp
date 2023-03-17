@@ -241,6 +241,89 @@ This layer will contain the business logic of the application, including the cal
 | Unfollow a User              | User unfollows another user                            | I am a registered user and following the target user           | I send a request to unfollow the target user        | I stop following the target user and receive a success message             |
 | Unfollow a User              | User tries to unfollow themselves                      | I am a registered user                                         | I send a request to unfollow myself                 | I receive an error message that I cannot unfollow myself                   |
 
+#### RSPEC Testing Methods:
+
+This layer contains the tescase list using the Rspec
+
+| Context                   | Expectation                           | Response              | Result                                                    |
+| ------------------------- | ------------------------------------- | --------------------- | --------------------------------------------------------- |
+| User is authenticated     | List of all users and user statistics | GET /api/v1/users     | HTTP 200 OK, correct keys, structure, and content         |
+| User is authenticated     | User's email                          | GET /api/v1/users/:id | HTTP 200 OK, user's email in JSON response                |
+| User is authenticated     | User's full name                      | GET /api/v1/users/:id | HTTP 200 OK, user's full name in JSON response            |
+| User is authenticated     | Number of followers for the user      | GET /api/v1/users/:id | HTTP 200 OK, user's followers count in JSON response      |
+| User is authenticated     | Number of followings for the user     | GET /api/v1/users/:id | HTTP 200 OK, user's following count in JSON response      |
+| User is authenticated     | List of followers for the user        | GET /api/v1/users/:id | HTTP 200 OK, user's followers list in JSON response       |
+| User is authenticated     | List of followings for the user       | GET /api/v1/users/:id | HTTP 200 OK, user's followings list in JSON response      |
+| User is authenticated     | List of sleep records for the user    | GET /api/v1/users/:id | HTTP 200 OK, user's sleep records list in JSON response   |
+| User is authenticated     | Total sleep duration for the user     | GET /api/v1/users/:id | HTTP 200 OK, user's total sleep duration in JSON response |
+| User is authenticated     | Sleep count for the user              | GET /api/v1/users/:id | HTTP 200 OK, user's sleep count in JSON response          |
+| User is not authenticated | Access to user's details              | GET /api/v1/users/:id | HTTP 401 Unauthorized                                     |
+
+**Note:** Not every actions in the controller have been tested
+
+List of controllers that has been tested
+
+- rspec ./spec/requests/home_spec.rb
+- rspec ./spec/requests/api/v1/users/users_controller_spec.rb
+- rspec ./spec/requests/api/v1/users/sessions_spec.rb
+
+Lis of controllers that has not been tested
+
+| HTTP Method | Endpoint                             | Description                                 |
+| ----------- | ------------------------------------ | ------------------------------------------- |
+| PATCH       | `/api/v1/users/:id`                  | Update a specific user by ID                |
+| PUT         | `/api/v1/users/:id`                  | Update a specific user by ID                |
+| POST        | `/api/v1/users/:user_id/connections` | Create a new connection for a specific user |
+| POST        | `/api/v1/users/:id/follow`           | Follow a specific user by ID                |
+| DELETE      | `/api/v1/users/:id/unfollow`         | Unfollow a specific user by ID              |
+| POST        | `/api/v1/users/:id/clock_in`         | Clock in a specific user by ID              |
+| POST        | `/api/v1/users/:id/clock_out`        | Clock out a specific user by ID             |
+| POST        | `/api/v1/users/signup`               | Register a new user                         |
+| DELETE      | `/api/v1/users/sign_out`             | Sign out a user                             |
+
 #### Data Storage Layer:
 
 This layer will store the data required by the application, including user profiles, sleep records, and following relationships. The data storage layer will be implemented using a relational database, such as PostgreSQL, and will use Ruby on Rails' built-in ActiveRecord library for database interactions.
+
+**users** table: This table stores user-related information such as email, encrypted password, and reset password tokens. There are unique indexes on the email and reset_password_token columns.
+
+**profiles** table: This table stores profile-related information such as first_name and last_name. There is a foreign key relationship between the profiles table and the users table through the user_id column, meaning each profile is associated with a user.
+
+**sleeps** table: This table stores sleep-related information such as start_time, end_time, and duration. There is a foreign key relationship between the sleeps table and the users table through the user_id column, meaning each sleep record is associated with a user.
+
+**connections** table: This table represents the relationship between users in a "follower-following" model. The table has two columns, follower_id and following_id, that are used to represent a directed relationship between two users. There are indexes on follower_id, following_id, and a composite index on (follower_id, following_id) to ensure uniqueness in the relationships.
+
+**jwt_denylist** table: This table stores JSON Web Token (JWT) denylist entries, which are used to track and deny access to invalidated JWTs. The table contains a jti (JWT ID) column and an exp (expiration time) column. There is an index on the jti column.
+
+Database Diagram
+
++----------------+ +----------------+ +---------------+
+| connections | | users | | profiles |
++----------------+ +----------------+ +---------------+
+| follower_id |------\ | id (PK) |---\ | id (PK) |
+| following_id |-------|--| email |----|----| user_id (FK) |
+| created_at | | encrypted_password | | first_name |
+| updated_at | | reset_password_token | | last_name |
++----------------+ | reset_password_sent_at | | created_at |
+| remember_created_at | | updated_at |
+| created_at | +---------------+
+| updated_at |
+| jti | +-------------+
+| token | | sleeps |
++----------------+ | +-------------+
+|--| id (PK) |
+| | user_id (FK)|
+| | start_time |
+| | end_time |
+| | duration |
+| | created_at |
+\--| updated_at |
++-------------+
+
++--------------+
+| jwt_denylist |
++--------------+
+| id (PK) |
+| jti |
+| exp |
++--------------+

@@ -1,9 +1,10 @@
 class Api::V1::UsersController < Api::V1::BaseController
   before_action :authenticate_user!
-  before_action :set_user, only: [:show, :update, :follow, :unfollow, :clock_in, :clock_out]
+  before_action :set_user, only: [:show, :follow, :unfollow, :clock_in, :clock_out, :update]
+  before_action :load_user_with_profile, only: [:update]
 
-  # GET /api/v1/users
-  # Retrieves a list of users and their summary data
+  # GET /api/v1/users/
+  # list of all users
   def index
     users = User.order(created_at: :desc).map(&:user_summary)
   
@@ -30,7 +31,7 @@ class Api::V1::UsersController < Api::V1::BaseController
   
     render json: {
       email: @user.email,
-      full_name: @user.profile.full_name,
+      full_name: @user.profile&.full_name,
       followers_count: @user.followers.count,
       following_count: @user.following.count,
       followers: @user.followers.map { |follower| { id: follower.id, name: follower.profile.full_name } },
@@ -45,24 +46,23 @@ class Api::V1::UsersController < Api::V1::BaseController
   # Updates a user's profile information
   def update
     if @user == current_user
-      result = @user.profile.update_profile(profile_params)
+      result = @user.profile.update(profile_params)
   
-      if result[:status] == :ok
+      if result
         render json: {
-          profile: result[:profile],
+          profile: result,
           success: true,
-          message: result[:message],
-          followers_count: result[:followers_count],
-          following_count: result[:following_count]
-        }, status: result[:status]
+          message: 'Profile updated successfully.',
+          followers_count: @user.followers.count,
+          following_count: @user.following.count
+        }, status: :ok
       else
-        render json: { success: false, errors: result[:errors] }, status: result[:status]
+        render json: { success: false, errors: @user.profile.errors.full_messages }, status: :unprocessable_entity
       end
     else
       render json: { success: false, error: "You are not authorized to update this profile." }, status: :unauthorized
     end
   end
-
 
   # POST /api/v1/users/:id/follow
   # Follows a user
@@ -131,6 +131,10 @@ class Api::V1::UsersController < Api::V1::BaseController
   end
   
   private
+
+  def load_user_with_profile
+    @user = User.includes(:profile).find(params[:id])
+  end
 
   # Helper method to set the user object based on the id parameter
   def set_user
