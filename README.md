@@ -127,10 +127,6 @@ This layer will provide RESTful APIs for the clock in operation, follow and unfo
 
 ##### User Follow Request
 
-```json
- https://example.com/api/v1/users/2/follow
-```
-
 ##### Success JSON (follow)
 
 ```json
