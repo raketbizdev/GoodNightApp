@@ -45,19 +45,20 @@ class Api::V1::UsersController < Api::V1::BaseController
   # PATCH /api/v1/users/:id
   # Updates a user's profile information
   def update
+    load_user_with_profile
     if @user == current_user
-      result = @user.profile.update(profile_params)
+      result = @user.profile.update_profile(profile_params)
   
-      if result
+      if result[:status] == :ok
         render json: {
-          profile: result,
+          profile: result[:profile],
           success: true,
-          message: 'Profile updated successfully.',
-          followers_count: @user.followers.count,
-          following_count: @user.following.count
-        }, status: :ok
+          message: result[:message],
+          followers_count: result[:followers_count],
+          following_count: result[:following_count]
+        }, status: result[:status]
       else
-        render json: { success: false, errors: @user.profile.errors.full_messages }, status: :unprocessable_entity
+        render json: { success: false, errors: result[:errors] }, status: result[:status]
       end
     else
       render json: { success: false, error: "You are not authorized to update this profile." }, status: :unauthorized
@@ -137,12 +138,12 @@ class Api::V1::UsersController < Api::V1::BaseController
   end
 
   # Helper method to set the user object based on the id parameter
-  def set_user
-    @user = User.find_by(id: params[:id])
-    if @user.nil?
-      render json: { success: false, error: "User not found." }, status: :not_found
-    end
+def set_user
+  @user = User.find_by(id: params[:id])
+  if @user.nil?
+    render json: { success: false, error: "User not found." }, status: :not_found
   end
+end
 
   # Helper method to permit profile parameters for update action
   def profile_params
