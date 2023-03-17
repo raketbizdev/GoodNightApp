@@ -85,7 +85,7 @@ This layer will provide RESTful APIs for the clock in operation, follow and unfo
 | --------------- | ----------- | ------------ | ----------------------------- | ------------------------- |
 | `/api/v1/users` | `GET`       | None         | [Success JSON](#success-json) | [Error JSON](#error-json) |
 
-##### Success
+##### Success JSON
 
 ```json
 {
@@ -111,7 +111,7 @@ This layer will provide RESTful APIs for the clock in operation, follow and unfo
 }
 ```
 
-##### Error Messages
+##### Error JSON
 
 ```json
 {
