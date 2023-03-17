@@ -3,9 +3,9 @@
 ### Table of Contents
 
 - [Original Instructions](#original-instructions)
-- [Business Requirements for the Good Night App](#business-requirements-for-the-good-night-app)
-- [Technical Requirements for the Good Night App](#technical-requirements-for-the-good-night-app)
-- [Software Design Document (SDD)](#software-design-document-sdd)
+- [Business Requirements](#busines-requirements-based-on-the-current-instruction)
+  - [Technical Requirements](#technical-requirements)
+- [Software Design Document (SDD)](#software-design-document)
   - [Introduction](#introduction)
   - [Getting Started](#getting-started)
   - [System Architecture](#system-architecture)
