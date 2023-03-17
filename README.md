@@ -297,33 +297,13 @@ This layer will store the data required by the application, including user profi
 
 Database Diagram
 
-+----------------+ +----------------+ +---------------+
-| connections | | users | | profiles |
-+----------------+ +----------------+ +---------------+
-| follower_id |------\ | id (PK) |---\ | id (PK) |
-| following_id |-------|--| email |----|----| user_id (FK) |
-| created_at | | encrypted_password | | first_name |
-| updated_at | | reset_password_token | | last_name |
-+----------------+ | reset_password_sent_at | | created_at |
-| remember_created_at | | updated_at |
-| created_at | +---------------+
-| updated_at |
-| jti | +-------------+
-| token | | sleeps |
-+----------------+ | +-------------+
-|--| id (PK) |
-| | user_id (FK)|
-| | start_time |
-| | end_time |
-| | duration |
-| | created_at |
-\--| updated_at |
-+-------------+
+To embed an image in markdown, you can use the following syntax:
 
-+--------------+
-| jwt_denylist |
-+--------------+
-| id (PK) |
-| jti |
-| exp |
-+--------------+
+less
+Copy code
+![Alt text](image_path "Optional title")
+Here's an example using the image link you provided:
+
+less
+Copy code
+![Good Night App Database Schema](goodnight_db.png "Good Night App Database Schema")
