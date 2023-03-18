@@ -432,6 +432,8 @@ These database tables store the necessary data to support the features and funct
 
 ### Deployments
 
+This section provides a brief overview of deploying the application to a local environment.
+
 #### Prerequisite requirements
 
 - Ruby version 3.1.2
