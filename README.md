@@ -69,247 +69,58 @@ Another feature of the app is the follow and unfollow function. This allows user
 
 The sleep records feature lets users view their friends' sleep records from the past week. The app returns a list of sleep records containing the start time, end time, and length of sleep, as well as the name of the user who slept during that period. It ensures the privacy and security of users' data by only displaying sleep records for users who the requester is following.
 
-### Getting Started
+### Application Logic:
 
-To run the Ruby on Rails app from the GitHub repository `git@github.com:raketbizdev/GoodNightApp.git`, follow these steps:
+In this Section, we provide an overview of the core functionality and flow of the application, detailing how the system should behave from a user's perspective. This section helps developers, testers, and stakeholders understand the purpose and functionality of the application, ensuring alignment with project goals and requirements.
 
-**Note:** These instructions assume you have Git, Ruby, Rails, and a PostgreSQL database installed on your local machine.
+#### User Stories
 
-1. Clone the repository:
-   Open a terminal/command prompt and run the following command:
+| User Role | As a...         | I want to...                 | So that I can...                                 | Acceptance Criteria                                                  |
+| --------- | --------------- | ---------------------------- | ------------------------------------------------ | -------------------------------------------------------------------- |
+| User      | Registered user | Register and authenticate    | Access the app's features                        | User is registered, logged in, and receives an authentication token  |
+| User      | Registered user | Create and update my profile | Personalize my account                           | Profile is linked to the user and can be updated                     |
+| User      | Registered user | Clock-in and clock-out       | Record my sleep cycles                           | Sleep records are saved with start time, end time, and duration      |
+| User      | Registered user | Follow and unfollow friends  | Connect with others and view their sleep records | Can view sleep records of mutual connections only                    |
+| User      | Registered user | View my sleep records        | Observe my sleep patterns over time              | Sleep records are displayed in a list ordered by created time        |
+| User      | Registered user | View friends' sleep records  | Compare and learn from others' sleep patterns    | Can view sleep records of mutual connections from the past week only |
 
-   ```bash
-    git clone git@github.com:raketbizdev/GoodNightApp.git
-   ```
+Based on the database schema, the application consists of five main tables: connections, jwt_denylist, profiles, sleeps, and users. The user stories are designed around these tables and their relationships:
 
-   This command will create a new directory named GoodNightApp containing the repository files.
+1. **User Authentication:** Users can register, log in, and authenticate themselves to access the app's features. The users table stores user credentials, while the jwt_denylist table is used for managing JSON Web Tokens (JWT) for secure authentication.
 
-2. Change to the project directory:
+2. **User Profiles:** Registered users can create and update their profiles, which are stored in the profiles table. Profiles are linked to users through a foreign key relationship.
 
-   ```bash
-    cd GoodNightApp
-   ```
+3. **Sleep Records: Users** can clock-in and clock-out to record their sleep cycles. The sleeps table stores these records, which include start time, end time, and duration, and are linked to users through a foreign key relationship.
 
-3. Install dependencies:
-   Install the required gems using Bundler:
+4. **Follow and Unfollow:** Users can follow and unfollow friends, enabling them to view their friends' sleep records. The connections table stores the relationship between follower and following users, with unique index constraints to prevent duplicate connections.
 
-   ```bash
-    bundle install
-   ```
+5. **View Sleep Records:** Users can view their sleep records and the sleep records of their followed friends. The application retrieves sleep records from the sleeps table and filters them based on the connections table.
 
-4. Configure the database:
-   Open the `config/database.yml` file and modify the `username`, `password`, and other `database settings` to match your local PostgreSQL configuration.
+#### API:
 
-5. Create and setup the database:
-   Run the following command to create the database, load the schema, and seed the data:
+In this API Section, we provide an overview of the RESTful API endpoints that correspond to the functionality outlined in the User Stories. These endpoints are based on the given routes defined in the Ruby on Rails application.
 
-   ```bash
-    rails db:create db:migrate db:seed
-   ```
+#### API Endpoints
 
-6. Start the Rails server:
-   Start the Rails server by running:
+##### Users
 
-   ```bash
-    rails server
-   ```
+- `POST /api/v1/users/signup`: Register a new user
+- `POST /api/v1/users/sign_in`: Sign in an existing user
+- `DELETE /api/v1/users/sign_out`: Sign out the authenticated user
 
-7. Access the application:
-   Open your web browser and navigate to `http://
-   you should see something below.
+##### User Profile
 
-   ```json
-   {
-     "status": "ok",
-     "message": "Welcome to Good Night API!"
-   }
-   ```
+- `GET /api/v1/users/:id`: Retrieve a user's profile
+- `PUT /api/v1/users/:id`: Update a user's profile
 
-8. Visit Postmant:
-   To start playing with the endpoints
+##### Sleep Records
 
-   [![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/23592113-29316bb0-524f-4a34-89e4-a192bb86c7a4?action=collection%2Ffork&collection-url=entityId%3D23592113-29316bb0-524f-4a34-89e4-a192bb86c7a4%26entityType%3Dcollection%26workspaceId%3D68366fbd-068a-4d58-bda2-aa1377bb68a7)
+- `POST /api/v1/users/:id/clock_in`: Clock-in a sleep cycle for the authenticated user
+- `POST /api/v1/users/:id/clock_out`: Clock-out a sleep cycle for the authenticated user
 
-### System architecture
+##### Follow and Unfollow
 
-#### Application Logic Layer:
+- `POST /api/v1/users/:id/follow`: Follow a user
+- `DELETE /api/v1/users/:id/unfollow`: Unfollow a user
 
-This layer will contain the business logic of the application, including the calculation of sleep cycle length, sorting of sleep records, and determining which sleep records to return based on the following relationship between users. The application logic layer will be implemented using the Ruby on Rails framework.
-
-| User Story                   | Scenario                                               | Given                                                          | When                                                | Then                                                                       |
-| ---------------------------- | ------------------------------------------------------ | -------------------------------------------------------------- | --------------------------------------------------- | -------------------------------------------------------------------------- |
-| Clock In for Sleep Tracking  | User clocks in for the first time                      | I am a registered user and not clocked in yet                  | I send a request to clock in                        | I start a new sleep session with the current time as the start time        |
-| Clock In for Sleep Tracking  | User tries to clock in without clocking out            | I am a registered user and have an ongoing sleep session       | I send a request to clock in                        | I receive an error message that I must clock out before clocking in again  |
-| Clock In for Sleep Tracking  | User tries to clock in for another user                | I am a registered user trying to clock in for a different user | I send a request to clock in with another user's ID | I receive an error message that I am not authorized to perform this action |
-| Clock Out for Sleep Tracking | User clocks out after a sleep session                  | I am a registered user and have an ongoing sleep session       | I send a request to clock out                       | My ongoing sleep session is updated with the current time as the end time  |
-| Clock Out for Sleep Tracking | User tries to clock out without clocking in            | I am a registered user and not clocked in yet                  | I send a request to clock out                       | I receive an error message that I must clock in before clocking out        |
-| Follow a User                | User follows another user                              | I am a registered user and not following the target user       | I send a request to follow the target user          | I start following the target user and receive a success message            |
-| Follow a User                | User tries to follow themselves                        | I am a registered user                                         | I send a request to follow myself                   | I receive an error message that I cannot follow myself                     |
-| Follow a User                | User tries to follow a user they are already following | I am a registered user and already following the target user   | I send a request to follow the target user          | I receive an error message that I am already following this user           |
-| Follow a User                | User tries to follow a non-existent user               | I am a registered user                                         | I send a request to follow a non-existent user      | I receive an error message that the user is not found                      |
-| Unfollow a User              | User unfollows another user                            | I am a registered user and following the target user           | I send a request to unfollow the target user        | I stop following the target user and receive a success message             |
-| Unfollow a User              | User tries to unfollow themselves                      | I am a registered user                                         | I send a request to unfollow myself                 | I receive an error message that I cannot unfollow myself                   |
-
-#### API Layer:
-
-This layer will provide RESTful APIs for the clock in operation, follow and unfollow other users, and sleep records over the past week. The API layer will be implemented using the Ruby on Rails framework and will communicate with the database layer to fetch and store data.
-
-| HTTP Method | Endpoint                          | Description                                                                                      |
-| ----------- | --------------------------------- | ------------------------------------------------------------------------------------------------ |
-| GET         | `/api/v1/users`                   | Get a list of all users                                                                          |
-| GET         | `/api/v1/users/:id`               | Get a specific user by ID                                                                        |
-| PUT/PATCH   | `/api/v1/users/:id`               | Update a specific user by ID                                                                     |
-| POST        | `/api/v1/users/:id/follow`        | Follow a specific user by ID                                                                     |
-| DELETE      | `/api/v1/users/:id/unfollow`      | Unfollow a specific user by ID                                                                   |
-| POST        | `/api/v1/users/:id/clock_in`      | Clock in a specific user by ID                                                                   |
-| POST        | `/api/v1/users/:id/clock_out`     | Clock out a specific user by ID                                                                  |
-| POST        | `/api/v1/users/signup`            | Sign up a user                                                                                   |
-| POST        | `/api/v1/users/sign_in`           | Sign in a user                                                                                   |
-| DELETE      | `/api/v1/users/sign_out`          | Sign out a user                                                                                  |
-| POST        | `/api/v1/users/:id/registrations` | Create a new registration record for the specified user (handled by the RegistrationsController) |
-| POST        | `/api/v1/users/:id/sessions`      | Create a new session for the specified user (handled by the SessionsController)                  |
-
-##### User List
-
-| Endpoint        | HTTP Method | Request Body | Success Response              | Error Response            |
-| --------------- | ----------- | ------------ | ----------------------------- | ------------------------- |
-| `/api/v1/users` | `GET`       | None         | [Success JSON](#success-json) | [Error JSON](#error-json) |
-
-##### Success JSON
-
-```json
-{
-  "users": [
-    {
-      "id": 1,
-      "name": "John Doe",
-      "email": "john.doe@example.com",
-      "created_at": "2023-01-01T00:00:00.000Z",
-      "updated_at": "2023-01-01T00:00:00.000Z"
-    },
-    {
-      "id": 2,
-      "name": "Jane Doe",
-      "email": "jane.doe@example.com",
-      "created_at": "2023-01-02T00:00:00.000Z",
-      "updated_at": "2023-01-02T00:00:00.000Z"
-    }
-  ],
-  "user_count": 2,
-  "followers_count": 1,
-  "followings_count": 1
-}
-```
-
-##### Error JSON
-
-```json
-{
-  "error": "You need to sign in or sign up before continuing."
-}
-```
-
-##### User Follow
-
-| Endpoint                   | HTTP Method | Request Body | Success Response                     | Error Response                   |
-| -------------------------- | ----------- | ------------ | ------------------------------------ | -------------------------------- |
-| `/api/v1/users/:id/follow` | `POST`      | None         | [Success JSON](#success-json-follow) | [Error JSON](#error-json-follow) |
-
-##### User Follow Request
-
-```json
-/api/v1/users/2/follow
-```
-
-##### Success JSON (follow)
-
-```json
-{
-  "success": true,
-  "message": "You are now following user@example.com."
-}
-```
-
-##### Error JSON (follow)
-
-```json
-[
-  {
-    "success": false,
-    "error": "User not found.",
-    "status": "not_found"
-  },
-  {
-    "success": false,
-    "error": "You cannot follow yourself.",
-    "status": "unprocessable_entity"
-  },
-  {
-    "success": false,
-    "error": "You are already following this user.",
-    "status": "unprocessable_entity"
-  }
-]
-```
-
-#### RSPEC Testing Methods:
-
-This layer contains the tescase list using the Rspec
-
-| Context                   | Expectation                           | Response              | Result                                                    |
-| ------------------------- | ------------------------------------- | --------------------- | --------------------------------------------------------- |
-| User is authenticated     | List of all users and user statistics | GET /api/v1/users     | HTTP 200 OK, correct keys, structure, and content         |
-| User is authenticated     | User's email                          | GET /api/v1/users/:id | HTTP 200 OK, user's email in JSON response                |
-| User is authenticated     | User's full name                      | GET /api/v1/users/:id | HTTP 200 OK, user's full name in JSON response            |
-| User is authenticated     | Number of followers for the user      | GET /api/v1/users/:id | HTTP 200 OK, user's followers count in JSON response      |
-| User is authenticated     | Number of followings for the user     | GET /api/v1/users/:id | HTTP 200 OK, user's following count in JSON response      |
-| User is authenticated     | List of followers for the user        | GET /api/v1/users/:id | HTTP 200 OK, user's followers list in JSON response       |
-| User is authenticated     | List of followings for the user       | GET /api/v1/users/:id | HTTP 200 OK, user's followings list in JSON response      |
-| User is authenticated     | List of sleep records for the user    | GET /api/v1/users/:id | HTTP 200 OK, user's sleep records list in JSON response   |
-| User is authenticated     | Total sleep duration for the user     | GET /api/v1/users/:id | HTTP 200 OK, user's total sleep duration in JSON response |
-| User is authenticated     | Sleep count for the user              | GET /api/v1/users/:id | HTTP 200 OK, user's sleep count in JSON response          |
-| User is not authenticated | Access to user's details              | GET /api/v1/users/:id | HTTP 401 Unauthorized                                     |
-
-**Note:** Not every actions in the controller have been tested
-
-List of controllers that has been tested
-
-- rspec ./spec/requests/home_spec.rb
-- rspec ./spec/requests/api/v1/users/users_controller_spec.rb
-- rspec ./spec/requests/api/v1/users/sessions_spec.rb
-
-Lis of controllers that has not been tested
-
-| HTTP Method | Endpoint                             | Description                                 |
-| ----------- | ------------------------------------ | ------------------------------------------- |
-| PATCH       | `/api/v1/users/:id`                  | Update a specific user by ID                |
-| PUT         | `/api/v1/users/:id`                  | Update a specific user by ID                |
-| POST        | `/api/v1/users/:user_id/connections` | Create a new connection for a specific user |
-| POST        | `/api/v1/users/:id/follow`           | Follow a specific user by ID                |
-| DELETE      | `/api/v1/users/:id/unfollow`         | Unfollow a specific user by ID              |
-| POST        | `/api/v1/users/:id/clock_in`         | Clock in a specific user by ID              |
-| POST        | `/api/v1/users/:id/clock_out`        | Clock out a specific user by ID             |
-| POST        | `/api/v1/users/signup`               | Register a new user                         |
-| DELETE      | `/api/v1/users/sign_out`             | Sign out a user                             |
-
-#### Data Storage Layer:
-
-This layer will store the data required by the application, including user profiles, sleep records, and following relationships. The data storage layer will be implemented using a relational database, such as PostgreSQL, and will use Ruby on Rails' built-in ActiveRecord library for database interactions.
-
-**users** table: This table stores user-related information such as email, encrypted password, and reset password tokens. There are unique indexes on the email and reset_password_token columns.
-
-**profiles** table: This table stores profile-related information such as first_name and last_name. There is a foreign key relationship between the profiles table and the users table through the user_id column, meaning each profile is associated with a user.
-
-**sleeps** table: This table stores sleep-related information such as start_time, end_time, and duration. There is a foreign key relationship between the sleeps table and the users table through the user_id column, meaning each sleep record is associated with a user.
-
-**connections** table: This table represents the relationship between users in a "follower-following" model. The table has two columns, follower_id and following_id, that are used to represent a directed relationship between two users. There are indexes on follower_id, following_id, and a composite index on (follower_id, following_id) to ensure uniqueness in the relationships.
-
-**jwt_denylist** table: This table stores JSON Web Token (JWT) denylist entries, which are used to track and deny access to invalidated JWTs. The table contains a jti (JWT ID) column and an exp (expiration time) column. There is an index on the jti column.
-
-##### Database Diagram
-
-![Good Night App Database Schema](goodnight_db.png "Good Night App Database Schema")
-
-## Conclusion
-
-To whoever reviews my code, I would like to express my appreciation for your time and effort in examining the "Good Night" application. Your feedback and suggestions are valuable to me, and I am committed to using them to improve the application and provide a better experience for our users. Thank you for your attention and support.
+### Database Design
