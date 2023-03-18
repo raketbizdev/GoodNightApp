@@ -98,7 +98,7 @@ Based on the database schema, the application consists of five main tables: conn
 
 #### API:
 
-In this API Section, we provide an overview of the RESTful API endpoints that correspond to the functionality outlined in the User Stories. These endpoints are based on the given routes defined in the Ruby on Rails application.
+In this Section, we provide an overview of the RESTful API endpoints that correspond to the functionality outlined in the User Stories. These endpoints are based on the given routes defined in the Ruby on Rails application.
 
 #### API Endpoints
 
@@ -124,3 +124,51 @@ In this API Section, we provide an overview of the RESTful API endpoints that co
 - `DELETE /api/v1/users/:id/unfollow`: Unfollow a user
 
 ### Database Design
+
+In this Section, we provide an overview of the database tables, their attributes, and relationships based on the given schema. The schema is designed to support the features and functionalities outlined in the User Stories and API Sections.
+
+#### Database Tables
+
+| Table Name     | Attribute              | Type        | Constraints      | Relationships                   |
+| -------------- | ---------------------- | ----------- | ---------------- | ------------------------------- |
+| users          | id                     | bigint      |                  |                                 |
+|                | email                  | string      | unique, not null |                                 |
+|                | encrypted_password     | string      | not null         |                                 |
+|                | reset_password_token   | string      | unique           |                                 |
+|                | reset_password_sent_at | datetime    |                  |                                 |
+|                | remember_created_at    | datetime    |                  |                                 |
+|                | created_at             | datetime    | not null         |                                 |
+|                | updated_at             | datetime    | not null         |                                 |
+|                | jti                    | string      |                  |                                 |
+|                | token                  | string      |                  |                                 |
+| -------------- | ---------------------- | ----------- | ---------------- | ------------------------------- |
+| profiles       | id                     | bigint      |                  |                                 |
+|                | first_name             | string      |                  |                                 |
+|                | last_name              | string      |                  |                                 |
+|                | user_id                | bigint      | not null         | Foreign key: user_id -> users   |
+|                | created_at             | datetime    | not null         |                                 |
+|                | updated_at             | datetime    | not null         |                                 |
+| -------------- | ---------------------- | ----------- | ---------------- | ------------------------------- |
+| sleeps         | id                     | bigint      |                  |                                 |
+|                | user_id                | bigint      | not null         | Foreign key: user_id -> users   |
+|                | start_time             | datetime    |                  |                                 |
+|                | end_time               | datetime    |                  |                                 |
+|                | duration               | float       |                  |                                 |
+|                | created_at             | datetime    | not null         |                                 |
+|                | updated_at             | datetime    | not null         |                                 |
+| -------------- | ---------------------- | ----------- | ---------------- | ------------------------------- |
+| connections    | id                     | bigint      |                  |                                 |
+|                | follower_id            | integer     |                  |                                 |
+|                | following_id           | integer     |                  |                                 |
+|                | created_at             | datetime    | not null         |                                 |
+|                | updated_at             | datetime    | not null         |                                 |
+| -------------- | ---------------------- | ----------- | ---------------- | ------------------------------- |
+| jwt_denylist   | id                     | bigint      |                  |                                 |
+|                | jti                    | string      | not null         |                                 |
+|                | exp                    | datetime    | not null         |                                 |
+
+#### Database Diagram
+
+![Good Night App Database Schema](goodnight_db.png "Good Night App Database Schema")
+
+These database tables store the necessary data to support the features and functionalities of the GoodNight App. The relationships between the tables ensure data integrity and consistency, while the unique constraints and foreign key relationships promote a well-structured and efficient database design.
