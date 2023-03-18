@@ -129,39 +129,51 @@ In this Section, we provide an overview of the database tables, their attributes
 
 #### Database Tables
 
-| Table Name   | Attribute              | Type     | Constraints      | Relationships                 |
-| ------------ | ---------------------- | -------- | ---------------- | ----------------------------- |
-| users        | id                     | bigint   |                  |                               |
-|              | email                  | string   | unique, not null |                               |
-|              | encrypted_password     | string   | not null         |                               |
-|              | reset_password_token   | string   | unique           |                               |
-|              | reset_password_sent_at | datetime |                  |                               |
-|              | remember_created_at    | datetime |                  |                               |
-|              | created_at             | datetime | not null         |                               |
-|              | updated_at             | datetime | not null         |                               |
-|              | jti                    | string   |                  |                               |
-|              | token                  | string   |                  |                               |
-| profiles     | id                     | bigint   |                  |                               |
-|              | first_name             | string   |                  |                               |
-|              | last_name              | string   |                  |                               |
-|              | user_id                | bigint   | not null         | Foreign key: user_id -> users |
-|              | created_at             | datetime | not null         |                               |
-|              | updated_at             | datetime | not null         |                               |
-| sleeps       | id                     | bigint   |                  |                               |
-|              | user_id                | bigint   | not null         | Foreign key: user_id -> users |
-|              | start_time             | datetime |                  |                               |
-|              | end_time               | datetime |                  |                               |
-|              | duration               | float    |                  |                               |
-|              | created_at             | datetime | not null         |                               |
-|              | updated_at             | datetime | not null         |                               |
-| connections  | id                     | bigint   |                  |                               |
-|              | follower_id            | integer  |                  |                               |
-|              | following_id           | integer  |                  |                               |
-|              | created_at             | datetime | not null         |                               |
-|              | updated_at             | datetime | not null         |                               |
-| jwt_denylist | id                     | bigint   |                  |                               |
-|              | jti                    | string   | not null         |                               |
-|              | exp                    | datetime | not null         |                               |
+| Table Name | Attribute              | Type     | Constraints      | Relationships |
+| ---------- | ---------------------- | -------- | ---------------- | ------------- |
+| users      | id                     | bigint   |                  |               |
+|            | email                  | string   | unique, not null |               |
+|            | encrypted_password     | string   | not null         |               |
+|            | reset_password_token   | string   | unique           |               |
+|            | reset_password_sent_at | datetime |                  |               |
+|            | remember_created_at    | datetime |                  |               |
+|            | created_at             | datetime | not null         |               |
+|            | updated_at             | datetime | not null         |               |
+|            | jti                    | string   |                  |               |
+|            | token                  | string   |                  |               |
+
+| Table Name | Attribute  | Type     | Constraints | Relationships                 |
+| ---------- | ---------- | -------- | ----------- | ----------------------------- |
+| profiles   | id         | bigint   |             |                               |
+|            | first_name | string   |             |                               |
+|            | last_name  | string   |             |                               |
+|            | user_id    | bigint   | not null    | Foreign key: user_id -> users |
+|            | created_at | datetime | not null    |                               |
+|            | updated_at | datetime | not null    |                               |
+
+| Table Name | Attribute  | Type     | Constraints | Relationships                 |
+| ---------- | ---------- | -------- | ----------- | ----------------------------- |
+| sleeps     | id         | bigint   |             |                               |
+|            | user_id    | bigint   | not null    | Foreign key: user_id -> users |
+|            | start_time | datetime |             |                               |
+|            | end_time   | datetime |             |                               |
+|            | duration   | float    |             |                               |
+|            | created_at | datetime | not null    |                               |
+|            | updated_at | datetime | not null    |                               |
+
+| Table Name  | Attribute    | Type     | Constraints | Relationships |
+| ----------- | ------------ | -------- | ----------- | ------------- |
+| connections | id           | bigint   |             |               |
+|             | follower_id  | integer  |             |               |
+|             | following_id | integer  |             |               |
+|             | created_at   | datetime | not null    |               |
+|             | updated_at   | datetime | not null    |               |
+
+| Table Name   | Attribute | Type     | Constraints | Relationships |
+| ------------ | --------- | -------- | ----------- | ------------- |
+| jwt_denylist | id        | bigint   |             |               |
+|              | jti       | string   | not null    |               |
+|              | exp       | datetime | not null    |               |
 
 #### Database Diagram
 
