@@ -23,10 +23,9 @@ class Api::V1::UsersController < Api::V1::BaseController
   # GET /api/v1/users/:id
   # Retrieves detailed information about a specific user
   def show
-    if @user.can_view_sleep_records?(current_user)
-      sleep_records = @user.sleep_records
-      total_duration = @user.sleeps.where.not(end_time: nil).sum(&:duration)
-      sleep_count = @user.sleeps.where.not(end_time: nil).count
+    sleep_records_summary = {}
+    if @user.sleep_records_viewable_by?(current_user)
+      sleep_records_summary = @user.sleep_records_summary
     end
   
     render json: {
@@ -34,12 +33,9 @@ class Api::V1::UsersController < Api::V1::BaseController
       full_name: @user.profile&.full_name,
       followers_count: @user.followers.count,
       following_count: @user.following.count,
-      followers: @user.followers.map { |follower| { id: follower.id, name: follower.profile.full_name } },
+      followers: @user.followers_summary,
       followings: @user.following_summary(current_user),
-      sleep_records: sleep_records,
-      total_duration: total_duration,
-      sleep_count: sleep_count
-    }, status: :ok
+    }.merge(sleep_records_summary), status: :ok
   end
   
   # PATCH /api/v1/users/:id

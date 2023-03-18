@@ -91,6 +91,36 @@ class User < ApplicationRecord
     following.count
   end
 
+  def followers_summary
+    followers.map { |follower| { id: follower.id, name: follower.profile.full_name } }
+  end
+
+  def sleep_records_viewable_by?(viewer)
+    # Replace this with your actual condition for checking if the viewer can see sleep records.
+    self == viewer
+  end
+
+  def sleep_records_summary
+    {
+      sleep_records: sleep_records,
+      total_duration: total_sleep_duration,
+      sleep_count: sleep_count
+    }
+  end
+
+  def sleep_records
+    sleeps
+  end
+
+  def total_sleep_duration
+    sleeps.where.not(end_time: nil).sum(&:duration)
+  end
+
+  def sleep_count
+    sleeps.where.not(end_time: nil).count
+  end
+
+
   def generate_jwt_token
     # Generate a JWT token for the user
     JWT.encode({ user_id: id }, Rails.application.secrets.secret_key_base, 'HS256')
