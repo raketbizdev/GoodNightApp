@@ -130,7 +130,7 @@ Here are the sample code snippets for each endpoint using cards instead of a tab
 ###### GET User
 
 ```bash
-GET /api/v1/users/:id
+# GET /api/v1/users/:id
 curl -X GET "<API_URL>/api/v1/users/<USER_ID>" \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer <AUTH_TOKEN>"
@@ -157,13 +157,125 @@ curl -X GET "<API_URL>/api/v1/users/<USER_ID>" \
 
 ###### Update User
 
+```bash
+# PUT /api/v1/users/:id
+curl -X PUT "<API_URL>/api/v1/users/<USER_ID>" \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer <AUTH_TOKEN>" \
+  -d '{"profile": {"first_name": "John", "last_name": "Doe"}}'
+
+# Success Response:
+# HTTP Status: 200 OK
+{
+  "profile": {...},
+  "success": true,
+  "message": "Profile updated successfully",
+  "followers_count": 10,
+  "following_count": 5
+}
+
+# Error Response:
+# HTTP Status: 401 Unauthorized
+{
+  "success": false,
+  "error": "You are not authorized to update this profile."
+}
+
+```
+
 ###### Follow User
+
+```bash
+# POST /api/v1/users/:id/follow
+curl -X POST "<API_URL>/api/v1/users/<FOLLOW_USER_ID>/follow" \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer <AUTH_TOKEN>"
+
+# Success Response:
+# HTTP Status: 200 OK
+{
+  "success": true,
+  "message": "You are now following user@example.com."
+}
+
+# Error Response:
+# HTTP Status: 404 Not Found
+{
+  "success": false,
+  "error": "User not found."
+}
+
+```
 
 ###### Unfollow User
 
+```bash
+# DELETE /api/v1/users/:id/unfollow
+curl -X DELETE "<API_URL>/api/v1/users/<FOLLOW_USER_ID>/unfollow" \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer <AUTH_TOKEN>"
+
+# Success Response:
+# HTTP Status: 200 OK
+{
+  "success": true,
+  "message": "You have unfollowed user@example.com."
+}
+
+# Error Response:
+# HTTP Status: 404 Not Found
+{
+  "success": false,
+  "error": "User not found."
+}
+```
+
 ###### Clock in
 
+```bash
+# POST /api/v1/users/:id/clock_in
+curl -X POST "<API_URL>/api/v1/users/<USER_ID>/clock_in" \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer <AUTH_TOKEN>"
+# Success Response:
+# HTTP Status: 201 Created
+{
+  "success": true,
+  "message": "Clock in successful.",
+  "sleep": {...}
+}
+
+# Error Response:
+# HTTP Status: 401 Unauthorized
+{
+  "success": false,
+  "message": "You are not authorized to perform this action."
+}
+```
+
 ###### Clock out
+
+```bash
+# POST /api/v1/users/:id/clock_out
+curl -X POST "<API_URL>/api/v1/users/<USER_ID>/clock_out" \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer <AUTH_TOKEN>"
+
+# Success Response:
+# HTTP Status: 200 OK
+{
+  "success": true,
+  "message": "Clock out successful.",
+  "sleep": {...}
+}
+
+# Error Response:
+# HTTP Status: 401 Unauthorized
+{
+  "success": false,
+  "message": "You are not authorized to perform this action."
+}
+```
 
 ### Database Design
 
