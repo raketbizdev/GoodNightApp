@@ -136,20 +136,19 @@ To run the Ruby on Rails app from the GitHub repository `git@github.com:raketbiz
 
 This layer will provide RESTful APIs for the clock in operation, follow and unfollow other users, and sleep records over the past week. The API layer will be implemented using the Ruby on Rails framework and will communicate with the database layer to fetch and store data.
 
-| HTTP Method | Endpoint                             | Description                                 |
-| ----------- | ------------------------------------ | ------------------------------------------- |
-| GET         | `/api/v1/users`                      | Retrieve a list of all users                |
-| GET         | `/api/v1/users/:id`                  | Retrieve a specific user by ID              |
-| PATCH       | `/api/v1/users/:id`                  | Update a specific user by ID                |
-| PUT         | `/api/v1/users/:id`                  | Update a specific user by ID                |
-| POST        | `/api/v1/users/:user_id/connections` | Create a new connection for a specific user |
-| POST        | `/api/v1/users/:id/follow`           | Follow a specific user by ID                |
-| DELETE      | `/api/v1/users/:id/unfollow`         | Unfollow a specific user by ID              |
-| POST        | `/api/v1/users/:id/clock_in`         | Clock in a specific user by ID              |
-| POST        | `/api/v1/users/:id/clock_out`        | Clock out a specific user by ID             |
-| POST        | `/api/v1/users/signup`               | Register a new user                         |
-| POST        | `/api/v1/users/sign_in`              | Sign in a user                              |
-| DELETE      | `/api/v1/users/sign_out`             | Sign out a user                             |
+| HTTP Method | Endpoint                      | Description                     |
+| ----------- | ----------------------------- | ------------------------------- |
+| GET         | `/api/v1/users`               | Retrieve a list of all users    |
+| GET         | `/api/v1/users/:id`           | Retrieve a specific user by ID  |
+| PATCH       | `/api/v1/users/:id`           | Update a specific user by ID    |
+| PUT         | `/api/v1/users/:id`           | Update a specific user by ID    |
+| POST        | `/api/v1/users/:id/follow`    | Follow a specific user by ID    |
+| DELETE      | `/api/v1/users/:id/unfollow`  | Unfollow a specific user by ID  |
+| POST        | `/api/v1/users/:id/clock_in`  | Clock in a specific user by ID  |
+| POST        | `/api/v1/users/:id/clock_out` | Clock out a specific user by ID |
+| POST        | `/api/v1/users/signup`        | Register a new user             |
+| POST        | `/api/v1/users/sign_in`       | Sign in a user                  |
+| DELETE      | `/api/v1/users/sign_out`      | Sign out a user                 |
 
 ##### User List
 

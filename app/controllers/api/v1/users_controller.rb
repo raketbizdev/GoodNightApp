@@ -64,15 +64,17 @@ class Api::V1::UsersController < Api::V1::BaseController
   # POST /api/v1/users/:id/follow
   # Follows a user
   def follow
-    if @user.nil?
+    user_to_follow = User.find_by(id: params[:id])
+    
+    if user_to_follow.nil?
       render json: { success: false, error: "User not found." }, status: :not_found
-    elsif @user == current_user
+    elsif user_to_follow == current_user
       render json: { success: false, error: "You cannot follow yourself." }, status: :unprocessable_entity
-    elsif current_user.following.include?(@user)
+    elsif current_user.following.include?(user_to_follow)
       render json: { success: false, error: "You are already following this user." }, status: :unprocessable_entity
     else
-      current_user.following << @user
-      render json: { success: true, message: "You are now following #{@user.email}." }, status: :ok
+      current_user.following << user_to_follow
+      render json: { success: true, message: "You are now following #{user_to_follow.email}." }, status: :ok
     end
   end
   
