@@ -6,11 +6,11 @@ class Api::V1::UsersController < Api::V1::BaseController
   # GET /api/v1/users/
   # list of all users
   def index
-    users = User.order(created_at: :desc).map(&:user_summary)
+    users = User.summary_list
   
     user_count = User.count
-    follower_count = current_user.followers.count
-    following_count = current_user.following.count
+    follower_count = current_user.follower_count
+    following_count = current_user.following_count
   
     render json: {
       users: users,

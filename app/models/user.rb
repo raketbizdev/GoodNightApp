@@ -77,6 +77,20 @@ class User < ApplicationRecord
     }
   end
 
+  def self.summary_list
+    includes(:connections_as_follower, :connections_as_following, :following, :followers)
+      .order(created_at: :desc)
+      .map(&:user_summary)
+  end
+
+  def follower_count
+    followers.count
+  end
+
+  def following_count
+    following.count
+  end
+
   def generate_jwt_token
     # Generate a JWT token for the user
     JWT.encode({ user_id: id }, Rails.application.secrets.secret_key_base, 'HS256')
