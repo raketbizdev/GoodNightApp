@@ -16,6 +16,10 @@
   - [Database Design](#database-design)
     - [Database Tables](#database-tables)
     - [Database Diagram](#database-diagram)
+  - [Testing](#testing)
+  - [Deployments](#deployments)
+    - [Prerequisite requirements](#prerequisite-requirements)
+    - [Local](#local)
 
 ## Original Instructions
 
@@ -77,7 +81,7 @@ In this Section, we provide an overview of the core functionality and flow of th
 
 | User Role | As a... | I want to...                  | So that I can...               | Acceptance Criteria                                                      |
 | --------- | ------- | ----------------------------- | ------------------------------ | ------------------------------------------------------------------------ |
-| Visitor   | Visitor | Access the home page          | Explore the website            | - Home index is displayed (not part of API)                              |
+| Visitor   | Visitor | Access the home page          | Explore the app                | - Home index is displayed (not part of API)                              |
 | User      | User    | Sign up (register)            | Create a new account           | - Email, password, and password confirmation are provided                |
 |           |         |                               |                                | - Successful registration with a unique email                            |
 | User      | User    | Sign in (login)               | Access my account              | - Correct email and password are provided                                |
@@ -423,3 +427,81 @@ In this Section, we provide an overview of the database tables, their attributes
 ![Good Night App Database Schema](goodnight_db.png "Good Night App Database Schema")
 
 These database tables store the necessary data to support the features and functionalities of the GoodNight App. The relationships between the tables ensure data integrity and consistency, while the unique constraints and foreign key relationships promote a well-structured and efficient database design.
+
+### Testing
+
+### Deployments
+
+#### Prerequisite requirements
+
+- Ruby version 3.1.2
+- Rails version 7.0.4 or higher
+- PostgreSQL as the database for Active Record
+- Puma web server version 5.0 or higher
+- Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
+- Devise gem version 4.9 or higher for user authentication
+- Devise-JWT gem version 0.10.0 or higher for JWT token authentication
+- JSON API for building APIs in Rails
+- Rack-Attack for rate limiting and throttling
+- Faker for generating fake data for testing
+- RSpec gem version 6.0.1 or higher for testing
+- JSONAPI-RSpec for testing JSON API responses
+- Factory Bot gem for generating test data
+
+Additionally, the debug gem is included for development and testing, as well as the bootsnap gem to reduce boot times through caching. The tzinfo-data gem is also required for Windows machines to include timezone information.
+
+#### Local
+
+To run the Ruby on Rails app from the GitHub repository `git@github.com:raketbizdev/GoodNightApp.git`, follow these steps:
+
+**Note:** These instructions assume you have Git, Ruby, Rails, and a PostgreSQL database installed on your local machine.
+
+1. Clone the repository:
+   Open a terminal/command prompt and run the following command:
+
+   ```bash
+    git clone git@github.com:raketbizdev/GoodNightApp.git
+   ```
+
+   This command will create a new directory named GoodNightApp containing the repository files.
+
+2. Change to the project directory:
+
+   ```bash
+    cd GoodNightApp
+   ```
+
+3. Install dependencies:
+   Install the required gems using Bundler:
+
+   ```bash
+    bundle install
+   ```
+
+4. Configure the database:
+   Open the `config/database.yml` file and modify the `username`, `password`, and other `database settings` to match your local PostgreSQL configuration.
+
+5. Create and setup the database:
+   Run the following command to create the database, load the schema, and seed the data:
+
+   ```bash
+    rails db:create db:migrate db:seed
+   ```
+
+6. Start the Rails server:
+   Start the Rails server by running:
+
+   ```bash
+    rails server
+   ```
+
+7. Access the application:
+   Open your web browser and navigate to `http://
+   you should see something below.
+
+   ```json
+   {
+     "status": "ok",
+     "message": "Welcome to Good Night API!"
+   }
+   ```
