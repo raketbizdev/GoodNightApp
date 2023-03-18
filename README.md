@@ -1,6 +1,6 @@
 # README
 
-### Table of Contents
+## Table of Contents
 
 - [Original Instructions](#original-instructions)
 - [Business Requirements](#busines-requirements-based-on-the-current-instruction)
@@ -8,14 +8,14 @@
   - [Technical Requirements](#technical-requirements)
 - [Software Design Document (SDD)](#software-design-document)
   - [Introduction](#introduction)
-  - [Getting Started](#getting-started)
-  - [System Architecture](#system-architecture)
-    - [Application Logic Layer](#application-logic-layer)
-    - [API Layer](#api-layer)
-    - [RSPEC Testing Methods](#rspec-testing-methods)
-    - [Data Storage Layer](#data-storage-layer)
-    - [Database Diagram](#database-diagram)
-- [Conclusion](#Conclusion)
+  - [Application Logic](#application-logic)
+    - [User Stories](user-stories)
+  - [API](#api)
+    - [API Endpoints](api-endpoints)
+    - [Sample API endpoints](sample-api-endpoints)
+  - [Database Design](database-design)
+    - [Database Tables](database-tables)
+    - [Database Diagram](database-diagram)
 
 ## Original Instructions
 
@@ -100,7 +100,7 @@ Based on the database schema, the application consists of five main tables: conn
 
 In this Section, we provide an overview of the RESTful API endpoints that correspond to the functionality outlined in the User Stories. These endpoints are based on the given routes defined in the Ruby on Rails application.
 
-#### API Endpoints
+##### API Endpoints
 
 | HTTP Method | Endpoint                    | Anchor Tag                                    | Description                            |
 | ----------- | --------------------------- | --------------------------------------------- | -------------------------------------- |
@@ -121,7 +121,7 @@ These API endpoints allow the GoodNight App to interact with the server and perf
 
 Here are the sample code snippets for each endpoint using cards instead of a table format. Please note that you need to replace the placeholders with your actual values, such as `<API_URL>`, `<AUTH_TOKEN>`, `<USER_ID>`, `<FOLLOW_USER_ID>`.
 
-###### /api/v1/users/:id
+###### GET /api/v1/users/:id
 
 ```bash
 curl -X GET "<API_URL>/api/v1/users/<USER_ID>" \
