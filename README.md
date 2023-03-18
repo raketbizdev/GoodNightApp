@@ -115,6 +115,61 @@ In this Section, we provide an overview of the RESTful API endpoints that corres
 | POST        | /api/v1/users/sign_in       | [#sign-in](#/api/v1/users/sign_in)            | Sign in (login) an existing user       |
 | DELETE      | /api/v1/users/sign_out      | [#sign-out](#/api/v1/users/sign_out)          | Sign out (logout) the current user     |
 
+These API endpoints allow the GoodNight App to interact with the server and perform the required operations. The anchor tags provide a convenient way to navigate the documentation and quickly access specific sections related to each endpoint. The endpoint paths are still displayed to ensure clarity. The endpoints are designed to provide a consistent and user-friendly interface to access and manage the data stored in the database. The HTTP methods follow the RESTful convention, ensuring a clear separation of responsibilities for each action.
+
+Sample API endpoints
+
+| HTTP Method | Endpoint          | Sample Code with Headers, Body, and Responses  |
+| ----------- | ----------------- | ---------------------------------------------- |
+| GET         | /api/v1/users/:id | ```bash                                        |
+|             |                   | curl -X GET "<API_URL>/api/v1/users/<USER_ID>" |
+|             |                   | -H "Content-Type: application/json"            |
+|             |                   | -H "Authorization: Bearer <AUTH_TOKEN>"        |
+|             |                   |                                                |
+|             |                   | # Success Response:                            |
+|             |                   | # HTTP Status: 200 OK                          |
+|             |                   | # {                                            |
+|             |                   | # "email": "user@example.com",                 |
+|             |                   | # "full_name": "John Doe",                     |
+|             |                   | # "followers_count": 10,                       |
+|             |                   | # "following_count": 5,                        |
+|             |                   | # "followers": [...],                          |
+|             |                   | # "followings": [...]                          |
+|             |                   | # }                                            |
+|             |                   |                                                |
+|             |                   | # Error Response:                              |
+|             |                   | # HTTP Status: 404 Not Found                   |
+|             |                   | # {                                            |
+|             |                   | # "success": false,                            |
+|             |                   | # "error": "User not found."                   |
+|             |                   | # }                                            |
+|             |                   | ```                                            |
+| PUT         | /api/v1/users/:id | ```bash                                        |
+|             |                   | curl -X PUT "<API_URL>/api/v1/users/<USER_ID>" |
+|             |                   | -H "Content-Type: application/json"            |
+|             |                   | -H "Authorization: Bearer <AUTH_TOKEN>"        |
+|             |                   | -d '{"profile": {"first_name": "John",         |
+|             |                   | "last_name": "Doe"}}'                          |
+|             |                   |                                                |
+|             |                   | # Success Response:                            |
+|             |                   | # HTTP Status: 200 OK                          |
+|             |                   | # {                                            |
+|             |                   | # "profile": {...},                            |
+|             |                   | # "success": true,                             |
+|             |                   | # "message": "Profile updated successfully",   |
+|             |                   | # "followers_count": 10,                       |
+|             |                   | # "following_count": 5                         |
+|             |                   | # }                                            |
+|             |                   |                                                |
+|             |                   | # Error Response:                              |
+|             |                   | # HTTP Status: 401 Unauthorized                |
+|             |                   | # {                                            |
+|             |                   | # "success": false,                            |
+|             |                   | # "error": "You are not authorized to          |
+|             |                   | update this profile."                          |
+|             |                   | # }                                            |
+|             |                   | ```                                            |
+
 ### Database Design
 
 In this Section, we provide an overview of the database tables, their attributes, and relationships based on the given schema. The schema is designed to support the features and functionalities outlined in the User Stories and API Sections.
