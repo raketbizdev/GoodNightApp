@@ -124,27 +124,28 @@ Here are the sample code snippets for each endpoint using cards instead of a tab
 ###### GET User
 
 ```bash
+GET /api/v1/users/:id
 curl -X GET "<API_URL>/api/v1/users/<USER_ID>" \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer <AUTH_TOKEN>"
 
 # Success Response:
 # HTTP Status: 200 OK
-# {
-#   "email": "user@example.com",
-#   "full_name": "John Doe",
-#   "followers_count": 10,
-#   "following_count": 5,
-#   "followers": [...],
-#   "followings": [...]
-# }
+{
+  "email": "user@example.com",
+  "full_name": "John Doe",
+  "followers_count": 10,
+  "following_count": 5,
+  "followers": [...],
+  "followings": [...]
+}
 
 # Error Response:
-# HTTP Status: 404 Not Found
-# {
-#   "success": false,
-#   "error": "User not found."
-# }
+HTTP Status: 404 Not Found
+{
+  "success": false,
+  "error": "User not found."
+}
 
 ```
 
