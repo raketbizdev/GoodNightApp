@@ -102,24 +102,30 @@ In this Section, we provide an overview of the RESTful API endpoints that corres
 
 ##### API Endpoints
 
-| HTTP Method | Endpoint                    | Anchor Tag                                    | Description                            |
-| ----------- | --------------------------- | --------------------------------------------- | -------------------------------------- |
-| GET         | /                           |                                               | Home index (not part of API)           |
-| GET         | /api/v1/users/:id           | [#get-user](#get-user)                        | Retrieve a specific user's information |
-| PUT         | /api/v1/users/:id           | [#update-user](#/api/v1/users/:id)            | Update a specific user's information   |
-| POST        | /api/v1/users/:id/follow    | [#follow-user](#/api/v1/users/:id/follow)     | Follow another user                    |
-| DELETE      | /api/v1/users/:id/unfollow  | [#unfollow-user](#/api/v1/users/:id/unfollow) | Unfollow another user                  |
-| POST        | /api/v1/users/:id/clock_in  | [#clock-in](#/api/v1/users/:id/clock_in)      | Clock-in sleep for the user            |
-| POST        | /api/v1/users/:id/clock_out | [#clock-out](#/api/v1/users/:id/clock_out)    | Clock-out sleep for the user           |
-| POST        | /api/v1/users/signup        | [#signup](#/api/v1/users/signup)              | Sign up (register) a new user          |
-| POST        | /api/v1/users/sign_in       | [#sign-in](#/api/v1/users/sign_in)            | Sign in (login) an existing user       |
-| DELETE      | /api/v1/users/sign_out      | [#sign-out](#/api/v1/users/sign_out)          | Sign out (logout) the current user     |
+| HTTP Method | Endpoint                    | Anchor Tag                      | Description                            |
+| ----------- | --------------------------- | ------------------------------- | -------------------------------------- |
+| GET         | /                           |                                 | Home index (not part of API)           |
+| POST        | /api/v1/users/signup        | [signup](#signup)               | Sign up (register) a new user          |
+| POST        | /api/v1/users/sign_in       | [sign-in](#sign-in)             | Sign in (login) an existing user       |
+| DELETE      | /api/v1/users/sign_out      | [sign-out](#sign-out)           | Sign out (logout) the current user     |
+| GET         | /api/v1/users/:id           | [get-user](#get-user)           | Retrieve a specific user's information |
+| PUT         | /api/v1/users/:id           | [update-user](#update-user)     | Update a specific user's information   |
+| POST        | /api/v1/users/:id/follow    | [follow-user](#follow-user)     | Follow another user                    |
+| DELETE      | /api/v1/users/:id/unfollow  | [unfollow-user](#unfollow-user) | Unfollow another user                  |
+| POST        | /api/v1/users/:id/clock_in  | [clock-in](#clock-in)           | Clock-in sleep for the user            |
+| POST        | /api/v1/users/:id/clock_out | [clock-out](#clock-out)         | Clock-out sleep for the user           |
 
 These API endpoints allow the GoodNight App to interact with the server and perform the required operations. The anchor tags provide a convenient way to navigate the documentation and quickly access specific sections related to each endpoint. The endpoint paths are still displayed to ensure clarity. The endpoints are designed to provide a consistent and user-friendly interface to access and manage the data stored in the database. The HTTP methods follow the RESTful convention, ensuring a clear separation of responsibilities for each action.
 
 ##### Sample API endpoints
 
 Here are the sample code snippets for each endpoint using cards instead of a table format. Please note that you need to replace the placeholders with your actual values, such as `<API_URL>`, `<AUTH_TOKEN>`, `<USER_ID>`, `<FOLLOW_USER_ID>`.
+
+###### Signup
+
+###### Sign in
+
+###### Sign out
 
 ###### GET User
 
@@ -141,13 +147,23 @@ curl -X GET "<API_URL>/api/v1/users/<USER_ID>" \
 }
 
 # Error Response:
-HTTP Status: 404 Not Found
+# HTTP Status: 404 Not Found
 {
   "success": false,
   "error": "User not found."
 }
 
 ```
+
+###### Update User
+
+###### Follow User
+
+###### Unfollow User
+
+###### Clock in
+
+###### Clock out
 
 ### Database Design
 
