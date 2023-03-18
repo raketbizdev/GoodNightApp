@@ -136,20 +136,20 @@ To run the Ruby on Rails app from the GitHub repository `git@github.com:raketbiz
 
 This layer will provide RESTful APIs for the clock in operation, follow and unfollow other users, and sleep records over the past week. The API layer will be implemented using the Ruby on Rails framework and will communicate with the database layer to fetch and store data.
 
-| HTTP Method | Endpoint                        | Description                                                                                      |
-| ----------- | ------------------------------- | ------------------------------------------------------------------------------------------------ |
-| GET         | /api/v1/users                   | Get a list of all users                                                                          |
-| GET         | /api/v1/users/:id               | Get a specific user by ID                                                                        |
-| PUT/PATCH   | /api/v1/users/:id               | Update a specific user by ID                                                                     |
-| POST        | /api/v1/users/:id/follow        | Follow a specific user by ID                                                                     |
-| DELETE      | /api/v1/users/:id/unfollow      | Unfollow a specific user by ID                                                                   |
-| POST        | /api/v1/users/:id/clock_in      | Clock in a specific user by ID                                                                   |
-| POST        | /api/v1/users/:id/clock_out     | Clock out a specific user by ID                                                                  |
-| POST        | /api/v1/users/signup            | Sign up a user                                                                                   |
-| POST        | /api/v1/users/sign_in           | Sign in a user                                                                                   |
-| DELETE      | /api/v1/users/sign_out          | Sign out a user                                                                                  |
-| POST        | /api/v1/users/:id/registrations | Create a new registration record for the specified user (handled by the RegistrationsController) |
-| POST        | /api/v1/users/:id/sessions      | Create a new session for the specified user (handled by the SessionsController)                  |
+| HTTP Method | Endpoint                          | Description                                                                                      |
+| ----------- | --------------------------------- | ------------------------------------------------------------------------------------------------ |
+| GET         | `/api/v1/users`                   | Get a list of all users                                                                          |
+| GET         | `/api/v1/users/:id`               | Get a specific user by ID                                                                        |
+| PUT/PATCH   | `/api/v1/users/:id`               | Update a specific user by ID                                                                     |
+| POST        | `/api/v1/users/:id/follow`        | Follow a specific user by ID                                                                     |
+| DELETE      | `/api/v1/users/:id/unfollow`      | Unfollow a specific user by ID                                                                   |
+| POST        | `/api/v1/users/:id/clock_in`      | Clock in a specific user by ID                                                                   |
+| POST        | `/api/v1/users/:id/clock_out`     | Clock out a specific user by ID                                                                  |
+| POST        | `/api/v1/users/signup`            | Sign up a user                                                                                   |
+| POST        | `/api/v1/users/sign_in`           | Sign in a user                                                                                   |
+| DELETE      | `/api/v1/users/sign_out`          | Sign out a user                                                                                  |
+| POST        | `/api/v1/users/:id/registrations` | Create a new registration record for the specified user (handled by the RegistrationsController) |
+| POST        | `/api/v1/users/:id/sessions`      | Create a new session for the specified user (handled by the SessionsController)                  |
 
 ##### User List
 
