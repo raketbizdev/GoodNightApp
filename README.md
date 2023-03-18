@@ -75,14 +75,29 @@ In this Section, we provide an overview of the core functionality and flow of th
 
 #### User Stories
 
-| User Role | As a...         | I want to...                 | So that I can...                                 | Acceptance Criteria                                                  |
-| --------- | --------------- | ---------------------------- | ------------------------------------------------ | -------------------------------------------------------------------- |
-| User      | Registered user | Register and authenticate    | Access the app's features                        | User is registered, logged in, and receives an authentication token  |
-| User      | Registered user | Create and update my profile | Personalize my account                           | Profile is linked to the user and can be updated                     |
-| User      | Registered user | Clock-in and clock-out       | Record my sleep cycles                           | Sleep records are saved with start time, end time, and duration      |
-| User      | Registered user | Follow and unfollow friends  | Connect with others and view their sleep records | Can view sleep records of mutual connections only                    |
-| User      | Registered user | View my sleep records        | Observe my sleep patterns over time              | Sleep records are displayed in a list ordered by created time        |
-| User      | Registered user | View friends' sleep records  | Compare and learn from others' sleep patterns    | Can view sleep records of mutual connections from the past week only |
+| User Role | As a... | I want to...                  | So that I can...               | Acceptance Criteria                                                      |
+| --------- | ------- | ----------------------------- | ------------------------------ | ------------------------------------------------------------------------ |
+| Visitor   | Visitor | Access the home page          | Explore the website            | - Home index is displayed (not part of API)                              |
+| User      | User    | Sign up (register)            | Create a new account           | - Email, password, and password confirmation are provided                |
+|           |         |                               |                                | - Successful registration with a unique email                            |
+| User      | User    | Sign in (login)               | Access my account              | - Correct email and password are provided                                |
+|           |         |                               |                                | - Successful authentication with a valid token                           |
+| User      | User    | Sign out (logout)             | Log out of my account          | - Current user's token is revoked                                        |
+|           |         |                               |                                | - Successful logout and user is redirected                               |
+| User      | User    | Retrieve a user's information | View a specific user's profile | - Valid user ID is provided                                              |
+|           |         |                               |                                | - Successful retrieval of user information including profile details     |
+| User      | User    | Update my information         | Keep my profile up to date     | - Valid user ID and updated information are provided                     |
+|           |         |                               |                                | - Successful update of user information with changes reflected           |
+| User      | User    | Follow another user           | Connect with other users       | - Valid user ID of the user to be followed is provided                   |
+|           |         |                               |                                | - Successful following of another user without duplicates                |
+| User      | User    | Unfollow another user         | Disconnect from other users    | - Valid user ID of the user to be unfollowed is provided                 |
+|           |         |                               |                                | - Successful unfollowing of another user and removal from following list |
+| User      | User    | Clock-in sleep                | Record my sleep start time     | - Valid user ID is provided                                              |
+|           |         |                               |                                | - Clock-in only allowed if the user has no ongoing sleep record          |
+|           |         |                               |                                | - Successful clock-in with sleep record created                          |
+| User      | User    | Clock-out sleep               | Record my sleep end time       | - Valid user ID is provided                                              |
+|           |         |                               |                                | - Clock-out only allowed if the user has an ongoing sleep record         |
+|           |         |                               |                                | - Successful clock-out with sleep record updated                         |
 
 Based on the database schema, the application consists of five main tables: connections, jwt_denylist, profiles, sleeps, and users. The user stories are designed around these tables and their relationships:
 
