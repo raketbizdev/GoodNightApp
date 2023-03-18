@@ -9,13 +9,13 @@
 - [Software Design Document (SDD)](#software-design-document)
   - [Introduction](#introduction)
   - [Application Logic](#application-logic)
-    - [User Stories](user-stories)
+    - [User Stories](#user-stories)
   - [API](#api)
-    - [API Endpoints](api-endpoints)
-    - [Sample API endpoints](sample-api-endpoints)
-  - [Database Design](database-design)
-    - [Database Tables](database-tables)
-    - [Database Diagram](database-diagram)
+    - [API Endpoints](#api-endpoints)
+    - [Sample API endpoints](#sample-api-endpoints)
+  - [Database Design](#database-design)
+    - [Database Tables](#database-tables)
+    - [Database Diagram](#database-diagram)
 
 ## Original Instructions
 
