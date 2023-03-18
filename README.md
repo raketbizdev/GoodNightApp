@@ -102,20 +102,18 @@ In this Section, we provide an overview of the RESTful API endpoints that corres
 
 #### API Endpoints
 
-| HTTP Method   | Endpoint                                            | Description                                           |
-| ------------- | --------------------------------------------------- | ----------------------------------------------------- |
-| GET           | /                                                   | Home index (not part of API)                          |
-| ------------- | --------------------------------------------------- | ----------------------------------------------------- |
-| GET           | [#get-user](#/api/v1/users/:id)                     | Retrieve a specific user's information                |
-| PUT           | [#update-user](#/api/v1/users/:id)                  | Update a specific user's information                  |
-| POST          | [#follow-user](#/api/v1/users/:id/follow)           | Follow another user                                   |
-| DELETE        | [#unfollow-user](#/api/v1/users/:id/unfollow)       | Unfollow another user                                 |
-| POST          | [#clock-in](#/api/v1/users/:id/clock_in)            | Clock-in sleep for the user                           |
-| POST          | [#clock-out](#/api/v1/users/:id/clock_out)          | Clock-out sleep for the user                          |
-| ------------- | --------------------------------------------------- | ----------------------------------------------------- |
-| POST          | [#signup](#/api/v1/users/signup)                    | Sign up (register) a new user                         |
-| POST          | [#sign-in](#/api/v1/users/sign_in)                  | Sign in (login) an existing user                      |
-| DELETE        | [#sign-out](#/api/v1/users/sign_out)                | Sign out (logout) the current user                    |
+| HTTP Method | Endpoint                    | Anchor Tag                                    | Description                            |
+| ----------- | --------------------------- | --------------------------------------------- | -------------------------------------- |
+| GET         | /                           |                                               | Home index (not part of API)           |
+| GET         | /api/v1/users/:id           | [#get-user](#/api/v1/users/:id)               | Retrieve a specific user's information |
+| PUT         | /api/v1/users/:id           | [#update-user](#/api/v1/users/:id)            | Update a specific user's information   |
+| POST        | /api/v1/users/:id/follow    | [#follow-user](#/api/v1/users/:id/follow)     | Follow another user                    |
+| DELETE      | /api/v1/users/:id/unfollow  | [#unfollow-user](#/api/v1/users/:id/unfollow) | Unfollow another user                  |
+| POST        | /api/v1/users/:id/clock_in  | [#clock-in](#/api/v1/users/:id/clock_in)      | Clock-in sleep for the user            |
+| POST        | /api/v1/users/:id/clock_out | [#clock-out](#/api/v1/users/:id/clock_out)    | Clock-out sleep for the user           |
+| POST        | /api/v1/users/signup        | [#signup](#/api/v1/users/signup)              | Sign up (register) a new user          |
+| POST        | /api/v1/users/sign_in       | [#sign-in](#/api/v1/users/sign_in)            | Sign in (login) an existing user       |
+| DELETE      | /api/v1/users/sign_out      | [#sign-out](#/api/v1/users/sign_out)          | Sign out (logout) the current user     |
 
 ### Database Design
 
