@@ -123,9 +123,81 @@ Here are the sample code snippets for each endpoint using cards instead of a tab
 
 ###### Signup
 
+```bash
+# POST /api/v1/users/signup
+curl -X POST "<API_URL>/api/v1/users/signup" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "user": {
+      "email": "<EMAIL>",
+      "password": "<PASSWORD>",
+      "password_confirmation": "<PASSWORD_CONFIRMATION>"
+    }
+  }'
+
+# Success Response:
+# HTTP Status: 201 Created
+{
+  "success": true,
+  "message": "User with email 'test@example.com' successfully registered"
+}
+
+# Error Response:
+# HTTP Status: 422 Unprocessable Entity
+{
+  "success": false,
+  "errors": [...]
+}
+```
+
 ###### Sign in
 
+```bash
+# POST /api/v1/users/sign_in
+curl -X POST "<API_URL>/api/v1/users/sign_in" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "user": {
+      "email": "<EMAIL>",
+      "password": "<PASSWORD>"
+    }
+  }'
+
+# Success Response:
+# HTTP Status: 200 OK
+{
+  "message": "Logged in successfully.",
+  "user": {...},
+  "token": "<JWT_TOKEN>"
+}
+
+# Error Response:
+# HTTP Status: 401 Unauthorized
+{
+  "error": "Invalid email or password."
+}
+```
+
 ###### Sign out
+
+```bash
+# DELETE /api/v1/users/sign_out
+curl -X DELETE "<API_URL>/api/v1/users/sign_out" \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer <AUTH_TOKEN>"
+
+# Success Response:
+# HTTP Status: 200 OK
+{
+  "message": "Logged out successfully."
+}
+
+# Error Response:
+# HTTP Status: 401 Unauthorized
+{
+  "error": "Unauthorized."
+}
+```
 
 ###### GET User
 
@@ -276,6 +348,8 @@ curl -X POST "<API_URL>/api/v1/users/<USER_ID>/clock_out" \
   "message": "You are not authorized to perform this action."
 }
 ```
+
+Please note that you need to replace the placeholders with your actual values, such as `<API_URL>`, `<AUTH_TOKEN>`, `<USER_ID>`.
 
 ### Database Design
 
