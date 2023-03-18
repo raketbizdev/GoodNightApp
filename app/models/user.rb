@@ -108,10 +108,6 @@ class User < ApplicationRecord
     }
   end
 
-  def sleep_records
-    sleeps
-  end
-
   def total_sleep_duration
     sleeps.where.not(end_time: nil).sum(&:duration)
   end
@@ -120,19 +116,33 @@ class User < ApplicationRecord
     sleeps.where.not(end_time: nil).count
   end
 
+  def update_profile(profile_params)
+    return { status: :unprocessable_entity, errors: ["No profile found."] } unless profile.present?
+
+    if profile.update(profile_params)
+      {
+        status: :ok,
+        profile: profile,
+        message: "Profile updated successfully.",
+        followers_count: followers.count,
+        following_count: following.count
+      }
+    else
+      { status: :unprocessable_entity, errors: profile.errors.full_messages }
+    end
+  end
 
   def generate_jwt_token
     # Generate a JWT token for the user
     JWT.encode({ user_id: id }, Rails.application.secrets.secret_key_base, 'HS256')
   end
 
-
+  after_create :create_profile
   private
 
   # Creates a profile for the user after registration.
   def create_profile
-    profile = Profile.new(user_id: self.id)
+    Profile.create(user_id: self.id, first_name: '', last_name: '')
   end
-
 
 end

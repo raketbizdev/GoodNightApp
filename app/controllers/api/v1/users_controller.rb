@@ -43,7 +43,7 @@ class Api::V1::UsersController < Api::V1::BaseController
   def update
     load_user_with_profile
     if @user == current_user
-      result = @user.profile.update_profile(profile_params)
+      result = @user.update_profile(profile_params)
   
       if result[:status] == :ok
         render json: {
