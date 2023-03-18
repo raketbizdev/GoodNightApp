@@ -119,9 +119,9 @@ These API endpoints allow the GoodNight App to interact with the server and perf
 
 ##### Sample API endpoints
 
-Here are the sample code snippets for each endpoint using cards instead of a table format. Please note that you need to replace the placeholders with your actual values, such as <API_URL>, <AUTH_TOKEN>, <USER_ID>, <FOLLOW_USER_ID>.
+Here are the sample code snippets for each endpoint using cards instead of a table format. Please note that you need to replace the placeholders with your actual values, such as `<API_URL>`, `<AUTH_TOKEN>`, `<USER_ID>`, `<FOLLOW_USER_ID>`.
 
-GET /api/v1/users/:id
+###### GET /api/v1/users/:id
 
 ```bash
 curl -X GET "<API_URL>/api/v1/users/<USER_ID>" \
