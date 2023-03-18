@@ -102,26 +102,20 @@ In this Section, we provide an overview of the RESTful API endpoints that corres
 
 #### API Endpoints
 
-##### Users
-
-- `POST /api/v1/users/signup`: Register a new user
-- `POST /api/v1/users/sign_in`: Sign in an existing user
-- `DELETE /api/v1/users/sign_out`: Sign out the authenticated user
-
-##### User Profile
-
-- `GET /api/v1/users/:id`: Retrieve a user's profile
-- `PUT /api/v1/users/:id`: Update a user's profile
-
-##### Sleep Records
-
-- `POST /api/v1/users/:id/clock_in`: Clock-in a sleep cycle for the authenticated user
-- `POST /api/v1/users/:id/clock_out`: Clock-out a sleep cycle for the authenticated user
-
-##### Follow and Unfollow
-
-- `POST /api/v1/users/:id/follow`: Follow a user
-- `DELETE /api/v1/users/:id/unfollow`: Unfollow a user
+| HTTP Method   | Endpoint                                            | Description                                           |
+| ------------- | --------------------------------------------------- | ----------------------------------------------------- |
+| GET           | /                                                   | Home index (not part of API)                          |
+| ------------- | --------------------------------------------------- | ----------------------------------------------------- |
+| GET           | [#get-user](#/api/v1/users/:id)                     | Retrieve a specific user's information                |
+| PUT           | [#update-user](#/api/v1/users/:id)                  | Update a specific user's information                  |
+| POST          | [#follow-user](#/api/v1/users/:id/follow)           | Follow another user                                   |
+| DELETE        | [#unfollow-user](#/api/v1/users/:id/unfollow)       | Unfollow another user                                 |
+| POST          | [#clock-in](#/api/v1/users/:id/clock_in)            | Clock-in sleep for the user                           |
+| POST          | [#clock-out](#/api/v1/users/:id/clock_out)          | Clock-out sleep for the user                          |
+| ------------- | --------------------------------------------------- | ----------------------------------------------------- |
+| POST          | [#signup](#/api/v1/users/signup)                    | Sign up (register) a new user                         |
+| POST          | [#sign-in](#/api/v1/users/sign_in)                  | Sign in (login) an existing user                      |
+| DELETE        | [#sign-out](#/api/v1/users/sign_out)                | Sign out (logout) the current user                    |
 
 ### Database Design
 
