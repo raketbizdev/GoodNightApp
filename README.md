@@ -10,8 +10,8 @@
   - [Introduction](#introduction)
   - [Getting Started](#getting-started)
   - [System Architecture](#system-architecture)
-    - [API Layer](#api-layer)
     - [Application Logic Layer](#application-logic-layer)
+    - [API Layer](#api-layer)
     - [RSPEC Testing Methods](#rspec-testing-methods)
     - [Data Storage Layer](#data-storage-layer)
     - [Database Diagram](#database-diagram)
@@ -132,6 +132,24 @@ To run the Ruby on Rails app from the GitHub repository `git@github.com:raketbiz
 
 ### System architecture
 
+#### Application Logic Layer:
+
+This layer will contain the business logic of the application, including the calculation of sleep cycle length, sorting of sleep records, and determining which sleep records to return based on the following relationship between users. The application logic layer will be implemented using the Ruby on Rails framework.
+
+| User Story                   | Scenario                                               | Given                                                          | When                                                | Then                                                                       |
+| ---------------------------- | ------------------------------------------------------ | -------------------------------------------------------------- | --------------------------------------------------- | -------------------------------------------------------------------------- |
+| Clock In for Sleep Tracking  | User clocks in for the first time                      | I am a registered user and not clocked in yet                  | I send a request to clock in                        | I start a new sleep session with the current time as the start time        |
+| Clock In for Sleep Tracking  | User tries to clock in without clocking out            | I am a registered user and have an ongoing sleep session       | I send a request to clock in                        | I receive an error message that I must clock out before clocking in again  |
+| Clock In for Sleep Tracking  | User tries to clock in for another user                | I am a registered user trying to clock in for a different user | I send a request to clock in with another user's ID | I receive an error message that I am not authorized to perform this action |
+| Clock Out for Sleep Tracking | User clocks out after a sleep session                  | I am a registered user and have an ongoing sleep session       | I send a request to clock out                       | My ongoing sleep session is updated with the current time as the end time  |
+| Clock Out for Sleep Tracking | User tries to clock out without clocking in            | I am a registered user and not clocked in yet                  | I send a request to clock out                       | I receive an error message that I must clock in before clocking out        |
+| Follow a User                | User follows another user                              | I am a registered user and not following the target user       | I send a request to follow the target user          | I start following the target user and receive a success message            |
+| Follow a User                | User tries to follow themselves                        | I am a registered user                                         | I send a request to follow myself                   | I receive an error message that I cannot follow myself                     |
+| Follow a User                | User tries to follow a user they are already following | I am a registered user and already following the target user   | I send a request to follow the target user          | I receive an error message that I am already following this user           |
+| Follow a User                | User tries to follow a non-existent user               | I am a registered user                                         | I send a request to follow a non-existent user      | I receive an error message that the user is not found                      |
+| Unfollow a User              | User unfollows another user                            | I am a registered user and following the target user           | I send a request to unfollow the target user        | I stop following the target user and receive a success message             |
+| Unfollow a User              | User tries to unfollow themselves                      | I am a registered user                                         | I send a request to unfollow myself                 | I receive an error message that I cannot unfollow myself                   |
+
 #### API Layer:
 
 This layer will provide RESTful APIs for the clock in operation, follow and unfollow other users, and sleep records over the past week. The API layer will be implemented using the Ruby on Rails framework and will communicate with the database layer to fetch and store data.
@@ -233,24 +251,6 @@ This layer will provide RESTful APIs for the clock in operation, follow and unfo
   }
 ]
 ```
-
-#### Application Logic Layer:
-
-This layer will contain the business logic of the application, including the calculation of sleep cycle length, sorting of sleep records, and determining which sleep records to return based on the following relationship between users. The application logic layer will be implemented using the Ruby on Rails framework.
-
-| User Story                   | Scenario                                               | Given                                                          | When                                                | Then                                                                       |
-| ---------------------------- | ------------------------------------------------------ | -------------------------------------------------------------- | --------------------------------------------------- | -------------------------------------------------------------------------- |
-| Clock In for Sleep Tracking  | User clocks in for the first time                      | I am a registered user and not clocked in yet                  | I send a request to clock in                        | I start a new sleep session with the current time as the start time        |
-| Clock In for Sleep Tracking  | User tries to clock in without clocking out            | I am a registered user and have an ongoing sleep session       | I send a request to clock in                        | I receive an error message that I must clock out before clocking in again  |
-| Clock In for Sleep Tracking  | User tries to clock in for another user                | I am a registered user trying to clock in for a different user | I send a request to clock in with another user's ID | I receive an error message that I am not authorized to perform this action |
-| Clock Out for Sleep Tracking | User clocks out after a sleep session                  | I am a registered user and have an ongoing sleep session       | I send a request to clock out                       | My ongoing sleep session is updated with the current time as the end time  |
-| Clock Out for Sleep Tracking | User tries to clock out without clocking in            | I am a registered user and not clocked in yet                  | I send a request to clock out                       | I receive an error message that I must clock in before clocking out        |
-| Follow a User                | User follows another user                              | I am a registered user and not following the target user       | I send a request to follow the target user          | I start following the target user and receive a success message            |
-| Follow a User                | User tries to follow themselves                        | I am a registered user                                         | I send a request to follow myself                   | I receive an error message that I cannot follow myself                     |
-| Follow a User                | User tries to follow a user they are already following | I am a registered user and already following the target user   | I send a request to follow the target user          | I receive an error message that I am already following this user           |
-| Follow a User                | User tries to follow a non-existent user               | I am a registered user                                         | I send a request to follow a non-existent user      | I receive an error message that the user is not found                      |
-| Unfollow a User              | User unfollows another user                            | I am a registered user and following the target user           | I send a request to unfollow the target user        | I stop following the target user and receive a success message             |
-| Unfollow a User              | User tries to unfollow themselves                      | I am a registered user                                         | I send a request to unfollow myself                 | I receive an error message that I cannot unfollow myself                   |
 
 #### RSPEC Testing Methods:
 
