@@ -160,7 +160,6 @@ RSpec.describe Api::V1::UsersController, type: :request do
     let(:profile_params) { { first_name: 'Updated First Name', last_name: 'Updated Last Name' } }
 
     context 'when the user is authenticated' do
-      before { request.headers.merge!(authenticated_header(user)) }
 
       context 'when updating their own profile' do
         it 'updates the profile and returns the updated profile' do

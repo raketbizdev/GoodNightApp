@@ -457,6 +457,105 @@ In this section, I outline User and Unit testing scenarios using RSpec, a popula
 - Context: When the user is not authenticated
   - Check that the response has a 401 (Unauthorized) status code.
 
+#### PUT /api/v1/users/:id
+
+- Test Scenario: Verify the functionality of the `/api/v1/users/:id` endpoint, which updates a user's profile.
+  - Context: When the user is authenticated
+    - Context: When updating their own profile
+      - Check that the response has a 200 (OK) status code.
+      - Check that the response body contains the correct keys and values.
+      - Check that the profile is updated and the updated profile is returned.
+      - Check that an error is returned when the update fails.
+    - Context: When updating another user's profile
+      - Check that the response has a 401 (Unauthorized) status code.
+      - Check that an error message is returned indicating that the user is not authorized to update the profile.
+  - Context: When the user is not authenticated
+    - Check that the response has a 401 (Unauthorized) status code.
+
+#### POST /api/v1/users/:id/follow
+
+- Test Scenario: Verify the functionality of the `/api/v1/users/:id/follow` endpoint, which allows a user to follow another user.
+  - Context: When the user is signed in and authenticated
+    - Check that the response has a 200 (OK) status code.
+    - Check that the response body contains the correct keys and values.
+    - Check that the user is successfully followed.
+    - Check that an error message is returned when trying to follow a non-existent user.
+    - Check that an error message is returned when trying to follow oneself.
+    - Check that an error message is returned when trying to follow a user that is already being followed.
+  - Context: When the user is not signed in or authenticated
+    - Check that the response has a 401 (Unauthorized) status code.
+
+#### DELETE /api/v1/users/:id/unfollow
+
+- Test Scenario: Verify the functionality of the `/api/v1/users/:id/unfollow` endpoint, which allows a user to unfollow another user.
+  - Context: When the user is signed in and authenticated
+    - Unfollows the user successfully.
+      - Check that the response has a 200 (OK) status code.
+      - Check that the response body contains the correct keys and values.
+      - Check that the message indicates that the user has been unfollowed.
+      - Check that the user is no longer following the unfollowed user.
+    - Returns an error when trying to unfollow a non-existent user.
+      - Check that the response has a 404 (Not Found) status code.
+      - Check that the response body contains the correct keys and values.
+      - Check that the error message indicates that the user was not found.
+    - Returns an error when trying to unfollow oneself.
+      - Check that the response has a 422 (Unprocessable Entity) status code.
+      - Check that the response body contains the correct keys and values.
+      - Check that the error message indicates that the user cannot unfollow themselves.
+    - Returns an error when trying to unfollow a user that is not being followed.
+      - Check that the response has a 422 (Unprocessable Entity) status code.
+      - Check that the response body contains the correct keys and values.
+      - Check that the error message indicates that the user is not following the unfollowed user.
+  - Context: When the user is not signed in or authenticated
+    - Check that the response has a 401 (Unauthorized) status code.
+
+# POST /api/v1/users/:id/clock_in
+
+- Test Scenario: Verify the functionality of the `/api/v1/users/:id/clock_in` endpoint, which allows a user to clock in.
+  - Context: When the user is signed in and authenticated
+    - Clocks the user in successfully.
+      - Check that the response has a 201 (Created) status code.
+      - Check that the response body contains the correct keys and values.
+      - Check that the message indicates that the clock in was successful.
+      - Check that the start time of the sleep record is not null.
+      - Check that the number of sleep records for the user is 1.
+    - Returns an error when the user is not authorized to clock in.
+      - Check that the response has a 401 (Unauthorized) status code.
+      - Check that the response body contains the correct keys and values.
+      - Check that the error message indicates that the user is not authorized to perform this action.
+      - Check that the number of sleep records for the user is 0.
+    - Returns an error when the user is already clocked in.
+      - Check that the response has a 422 (Unprocessable Entity) status code.
+      - Check that the response body contains the correct keys and values.
+      - Check that the error message indicates that the user must clock out before clocking in again.
+      - Check that the number of sleep records for the user is 1.
+  - Context: When the user is not signed in or authenticated
+    - Check that the response has a 401 (Unauthorized) status code.
+
+#### POST /api/v1/users/:id/clock_out
+
+- Test Scenario: Verify the functionality of the /api/v1/users/:id/clock_out endpoint, which allows a user to clock out their sleep.
+  - Context: When the user is signed in and authenticated
+  - When the user has a sleep record that is not already clocked out.
+    - Check that the response has a 200 (OK) status code.
+    - Check that the response body contains the correct keys and values.
+    - Check that the message indicates that the clock out was successful.
+    - Check that the sleep record has an end time and is associated with the user.
+  - When the user has no sleep records or all sleep records are already clocked out.
+    - Check that the response has a 422 (Unprocessable Entity) status code.
+    - Check that the response body contains the correct keys and values.
+    - Check that the error message indicates that the user must clock in before clocking out.
+  - Context: When the user is not signed in
+    - Check that the response has a 401 (Unauthorized) status code.
+  - Context: When the user is signed in but calling a non-existent user
+    - Check that the response has a 404 (Not Found) status code.
+    - Check that the response body contains the correct keys and values.
+    - Check that the error message indicates that the user was not found.
+  - Context: When the user is signed in but not authorized
+    - Check that the response has a 401 (Unauthorized) status code.
+    - Check that the response body contains the correct keys and values.
+    - Check that the error message indicates that the user is not authorized to perform the action.
+
 ### Deployments
 
 This section provides a brief overview of deploying the application to a local environment.
