@@ -14,7 +14,7 @@ FactoryBot.define do
       else
         user.token = Warden::JWTAuth::UserEncoder.new.call(user, :user, nil)
       end
-      create(:profile, user: user)
+      create(:profile, user: user, first_name: '', last_name: '')
     end
   end
 end

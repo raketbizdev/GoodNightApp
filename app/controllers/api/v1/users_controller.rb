@@ -114,7 +114,13 @@ class Api::V1::UsersController < Api::V1::BaseController
   # POST /api/v1/users/:id/clock_out
   # Clocks a user out for sleep tracking
   def clock_out
-    if params[:id].to_i == current_user.id
+    user = User.find_by(id: params[:id].to_i)
+  
+    if user.nil?
+      render json: { success: false, error: 'User not found.' }, status: :unauthorized
+    elsif current_user.nil?
+      render json: { success: false, message: 'You are not authorized to perform this action.' }, status: :unauthorized
+    elsif params[:id].to_i == current_user.id
       last_sleep = current_user.sleeps.order(start_time: :desc).first
   
       if last_sleep.present? && last_sleep.end_time.nil?

@@ -8,8 +8,8 @@ RSpec.describe Api::V1::Users::SessionsController, type: :request do
     token = Warden::JWTAuth::UserEncoder.new.call(user, :user, nil)
     { 'Authorization': "Bearer #{token}" }
   end
-
-  describe 'POST #create' do
+  # rspec ./spec/requests/api/v1/users/sessions_spec.rb -e 'POST /api/v1/users/sign_in'
+  describe 'POST /api/v1/users/sign_in' do
     context 'with valid credentials' do
       it 'returns a successful response with user data and JWT token' do
         post '/api/v1/users/sign_in', params: { _jsonapi: { user: { email: user.email, password: user.password } } }

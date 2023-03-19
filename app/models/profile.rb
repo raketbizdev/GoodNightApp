@@ -4,7 +4,11 @@ class Profile < ApplicationRecord
   # Returns the full name of the user if both first_name and last_name are present.
   # Otherwise, it returns "No name".
   def full_name
-    (first_name.blank? || last_name.blank?) ? "No name" : "#{first_name} #{last_name}"
+    if user.profile.first_name.blank? || user.profile.last_name.blank?
+      "No name"
+    else
+      "#{first_name} #{last_name}"
+    end
   end
 
   # Updates the profile with the given params, and returns a hash containing the result of the update operation.

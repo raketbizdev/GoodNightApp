@@ -1,5 +1,5 @@
 require 'rails_helper'
-
+# rspec ./spec/requests/api/v1/users/registrations_spec.rb
 RSpec.describe "Api::V1::Users::Registrations", type: :request do
   describe 'POST /api/v1/users/signup' do
     let(:url) { '/api/v1/users/signup' }
