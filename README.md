@@ -432,17 +432,17 @@ These database tables store the necessary data to support the features and funct
 
 In this section, we outline various testing methodologies, scenarios, and best practices using RSpec, a popular testing framework for Ruby applications. RSpec helps ensure that the application's features and functionalities operate as intended.
 
-1. #### GET /api/v1/users
+#### GET /api/v1/users
 
-- Test Scenario: Verify that the /api/v1/users endpoint returns a list of all users and their associated statistics.
+- Test Scenario: Verify that the `/api/v1/users` endpoint returns a list of all users and their associated statistics.
   - Context: When the user is signed in
   - Check that the response has a 200 (OK) status code.
   - Check that the response body contains the correct keys and values.
   - Check that the user statistics are present and correctly formatted.
 
-1. #### GET /api/v1/users/:id
+#### GET /api/v1/users/:id
 
-- Test Scenario: Verify the functionality of the /api/v1/users/:id endpoint, which retrieves information for a specific user.
+- Test Scenario: Verify the functionality of the `/api/v1/users/:id` endpoint, which retrieves information for a specific user.
   - Context: When the user is authenticated
   - Check that the response has a 200 (OK) status code.
   - Check that the user's email is present and correct.
