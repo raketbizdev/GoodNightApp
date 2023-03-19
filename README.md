@@ -434,14 +434,17 @@ In this section, I outline User and Unit testing scenarios using RSpec, a popula
 
 #### GET /api/v1/users
 
+```bash
 - Test Scenario: Verify that the `/api/v1/users` endpoint returns a list of all users and their associated statistics.
   - Context: When the user is signed in
   - Check that the response has a 200 (OK) status code.
   - Check that the response body contains the correct keys and values.
   - Check that the user statistics are present and correctly formatted.
+```
 
 #### GET /api/v1/users/:id
 
+````bash
 - Test Scenario: Verify the functionality of the `/api/v1/users/:id` endpoint, which retrieves information for a specific user.
   - Context: When the user is authenticated
   - Check that the response has a 200 (OK) status code.
@@ -456,9 +459,9 @@ In this section, I outline User and Unit testing scenarios using RSpec, a popula
 - Check that the sleep count for the user is correct.
 - Context: When the user is not authenticated
   - Check that the response has a 401 (Unauthorized) status code.
-
+```
 #### PUT /api/v1/users/:id
-
+```bash
 - Test Scenario: Verify the functionality of the `/api/v1/users/:id` endpoint, which updates a user's profile.
   - Context: When the user is authenticated
     - Context: When updating their own profile
@@ -471,9 +474,9 @@ In this section, I outline User and Unit testing scenarios using RSpec, a popula
       - Check that an error message is returned indicating that the user is not authorized to update the profile.
   - Context: When the user is not authenticated
     - Check that the response has a 401 (Unauthorized) status code.
-
+```
 #### POST /api/v1/users/:id/follow
-
+```bash
 - Test Scenario: Verify the functionality of the `/api/v1/users/:id/follow` endpoint, which allows a user to follow another user.
   - Context: When the user is signed in and authenticated
     - Check that the response has a 200 (OK) status code.
@@ -484,9 +487,11 @@ In this section, I outline User and Unit testing scenarios using RSpec, a popula
     - Check that an error message is returned when trying to follow a user that is already being followed.
   - Context: When the user is not signed in or authenticated
     - Check that the response has a 401 (Unauthorized) status code.
+````
 
 #### DELETE /api/v1/users/:id/unfollow
 
+```bash
 - Test Scenario: Verify the functionality of the `/api/v1/users/:id/unfollow` endpoint, which allows a user to unfollow another user.
   - Context: When the user is signed in and authenticated
     - Unfollows the user successfully.
@@ -508,9 +513,11 @@ In this section, I outline User and Unit testing scenarios using RSpec, a popula
       - Check that the error message indicates that the user is not following the unfollowed user.
   - Context: When the user is not signed in or authenticated
     - Check that the response has a 401 (Unauthorized) status code.
+```
 
 #### POST /api/v1/users/:id/clock_in
 
+```bash
 - Test Scenario: Verify the functionality of the `/api/v1/users/:id/clock_in` endpoint, which allows a user to clock in.
   - Context: When the user is signed in and authenticated
     - Clocks the user in successfully.
@@ -531,10 +538,12 @@ In this section, I outline User and Unit testing scenarios using RSpec, a popula
       - Check that the number of sleep records for the user is 1.
   - Context: When the user is not signed in or authenticated
     - Check that the response has a 401 (Unauthorized) status code.
+```
 
 #### POST /api/v1/users/:id/clock_out
 
-- Test Scenario: Verify the functionality of the /api/v1/users/:id/clock_out endpoint, which allows a user to clock out their sleep.
+```bash
+- Test Scenario: Verify the functionality of the `/api/v1/users/:id/clock_out` endpoint, which allows a user to clock out their sleep.
   - Context: When the user is signed in and authenticated
   - When the user has a sleep record that is not already clocked out.
     - Check that the response has a 200 (OK) status code.
@@ -555,6 +564,7 @@ In this section, I outline User and Unit testing scenarios using RSpec, a popula
     - Check that the response has a 401 (Unauthorized) status code.
     - Check that the response body contains the correct keys and values.
     - Check that the error message indicates that the user is not authorized to perform the action.
+```
 
 ### Deployments
 
