@@ -430,7 +430,7 @@ These database tables store the necessary data to support the features and funct
 
 ### Testing
 
-In this section, we outline various testing methodologies, scenarios, and best practices using RSpec, a popular testing framework for Ruby applications. RSpec helps ensure that the application's features and functionalities operate as intended.
+In this section, I outline User and Unit testing scenarios using RSpec, a popular testing framework for Ruby applications. RSpec helps ensure that the application's features and functionalities operate as intended.
 
 #### GET /api/v1/users
 
