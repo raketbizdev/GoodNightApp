@@ -444,7 +444,7 @@ In this section, I outline User and Unit testing scenarios using RSpec, a popula
 
 #### GET /api/v1/users/:id
 
-````bash
+```bash
 - Test Scenario: Verify the functionality of the `/api/v1/users/:id` endpoint, which retrieves information for a specific user.
   - Context: When the user is authenticated
   - Check that the response has a 200 (OK) status code.
@@ -460,7 +460,9 @@ In this section, I outline User and Unit testing scenarios using RSpec, a popula
 - Context: When the user is not authenticated
   - Check that the response has a 401 (Unauthorized) status code.
 ```
+
 #### PUT /api/v1/users/:id
+
 ```bash
 - Test Scenario: Verify the functionality of the `/api/v1/users/:id` endpoint, which updates a user's profile.
   - Context: When the user is authenticated
@@ -475,7 +477,9 @@ In this section, I outline User and Unit testing scenarios using RSpec, a popula
   - Context: When the user is not authenticated
     - Check that the response has a 401 (Unauthorized) status code.
 ```
+
 #### POST /api/v1/users/:id/follow
+
 ```bash
 - Test Scenario: Verify the functionality of the `/api/v1/users/:id/follow` endpoint, which allows a user to follow another user.
   - Context: When the user is signed in and authenticated
@@ -487,7 +491,7 @@ In this section, I outline User and Unit testing scenarios using RSpec, a popula
     - Check that an error message is returned when trying to follow a user that is already being followed.
   - Context: When the user is not signed in or authenticated
     - Check that the response has a 401 (Unauthorized) status code.
-````
+```
 
 #### DELETE /api/v1/users/:id/unfollow
 
