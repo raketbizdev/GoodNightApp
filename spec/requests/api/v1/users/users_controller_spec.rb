@@ -447,5 +447,4 @@ RSpec.describe Api::V1::UsersController, type: :request do
       end
     end
   end
-
 end
