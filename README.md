@@ -509,7 +509,7 @@ In this section, I outline User and Unit testing scenarios using RSpec, a popula
   - Context: When the user is not signed in or authenticated
     - Check that the response has a 401 (Unauthorized) status code.
 
-# POST /api/v1/users/:id/clock_in
+#### POST /api/v1/users/:id/clock_in
 
 - Test Scenario: Verify the functionality of the `/api/v1/users/:id/clock_in` endpoint, which allows a user to clock in.
   - Context: When the user is signed in and authenticated
