@@ -88,6 +88,7 @@ In this Section, we provide an overview of the core functionality and flow of th
 |                                     |         |                               |                                | - Successful authentication with a valid token                           |
 | `DELELTE /api/v1/users/sign_out`    | User    | Sign out (logout)             | Log out of my account          | - Current user's token is revoked                                        |
 |                                     |         |                               |                                | - Successful logout and user is redirected                               |
+| `GET /api/v1/users`                 | Admin   | Seel all registerered Users   | View all users                 | - Valid user ID is provided                                              |
 | `GET /api/v1/users/:id`             | User    | Retrieve a user's information | View a specific user's profile | - Valid user ID is provided                                              |
 |                                     |         |                               |                                | - Valid user ID of the user being followed                               |
 |                                     |         |                               |                                | - Successful retrieval of user information including profile details     |
