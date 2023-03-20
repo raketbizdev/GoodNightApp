@@ -79,29 +79,33 @@ In this Section, we provide an overview of the core functionality and flow of th
 
 #### User Stories
 
-| User Role | As a... | I want to...                  | So that I can...               | Acceptance Criteria                                                      |
-| --------- | ------- | ----------------------------- | ------------------------------ | ------------------------------------------------------------------------ |
-| Visitor   | Visitor | Access the home page          | Explore the app                | - Home index is displayed (not part of API)                              |
-| User      | User    | Sign up (register)            | Create a new account           | - Email, password, and password confirmation are provided                |
-|           |         |                               |                                | - Successful registration with a unique email                            |
-| User      | User    | Sign in (login)               | Access my account              | - Correct email and password are provided                                |
-|           |         |                               |                                | - Successful authentication with a valid token                           |
-| User      | User    | Sign out (logout)             | Log out of my account          | - Current user's token is revoked                                        |
-|           |         |                               |                                | - Successful logout and user is redirected                               |
-| User      | User    | Retrieve a user's information | View a specific user's profile | - Valid user ID is provided                                              |
-|           |         |                               |                                | - Successful retrieval of user information including profile details     |
-| User      | User    | Update my information         | Keep my profile up to date     | - Valid user ID and updated information are provided                     |
-|           |         |                               |                                | - Successful update of user information with changes reflected           |
-| User      | User    | Follow another user           | Connect with other users       | - Valid user ID of the user to be followed is provided                   |
-|           |         |                               |                                | - Successful following of another user without duplicates                |
-| User      | User    | Unfollow another user         | Disconnect from other users    | - Valid user ID of the user to be unfollowed is provided                 |
-|           |         |                               |                                | - Successful unfollowing of another user and removal from following list |
-| User      | User    | Clock-in sleep                | Record my sleep start time     | - Valid user ID is provided                                              |
-|           |         |                               |                                | - Clock-in only allowed if the user has no ongoing sleep record          |
-|           |         |                               |                                | - Successful clock-in with sleep record created                          |
-| User      | User    | Clock-out sleep               | Record my sleep end time       | - Valid user ID is provided                                              |
-|           |         |                               |                                | - Clock-out only allowed if the user has an ongoing sleep record         |
-|           |         |                               |                                | - Successful clock-out with sleep record updated                         |
+| Path                                | As a... | I want to...                  | So that I can...               | Acceptance Criteria                                                      |
+| ----------------------------------- | ------- | ----------------------------- | ------------------------------ | ------------------------------------------------------------------------ |
+| Visitor                             | Visitor | Access the home page          | Explore the app                | - Home index is displayed (not part of API)                              |
+| `POST /api/v1/users/signup`         | User    | Sign up (register)            | Create a new account           | - Email, password, and password confirmation are provided                |
+|                                     |         |                               |                                | - Successful registration with a unique email                            |
+| `POST /api/v1/users/sign_in`        | User    | Sign in (login)               | Access my account              | - Correct email and password are provided                                |
+|                                     |         |                               |                                | - Successful authentication with a valid token                           |
+| `DELELTE /api/v1/users/sign_out`    | User    | Sign out (logout)             | Log out of my account          | - Current user's token is revoked                                        |
+|                                     |         |                               |                                | - Successful logout and user is redirected                               |
+| `GET /api/v1/users/:id`             | User    | Retrieve a user's information | View a specific user's profile | - Valid user ID is provided                                              |
+|                                     |         |                               |                                | - Valid user ID of the user being followed                               |
+|                                     |         |                               |                                | - Successful retrieval of user information including profile details     |
+|                                     |         |                               |                                | - User is currently login                                                |
+|                                     |         |                               |                                | - User being folowed, also followed back user                            |
+|                                     |         |                               |                                | - Successful seeing records of sleeps of the user being followed         |
+| `PUT /api/v1/users/:id`             | User    | Update my information         | Keep my profile up to date     | - Valid user ID and updated information are provided                     |
+|                                     |         |                               |                                | - Successful update of user information with changes reflected           |
+| `POST /api/v1/users/:id/follow `    | User    | Follow another user           | Connect with other users       | - Valid user ID of the user to be followed is provided                   |
+|                                     |         |                               |                                | - Successful following of another user without duplicates                |
+| `DELETE /api/v1/users/:id/unfollow` | User    | Unfollow another user         | Disconnect from other users    | - Valid user ID of the user to be unfollowed is provided                 |
+|                                     |         |                               |                                | - Successful unfollowing of another user and removal from following list |
+| `POST /api/v1/users/:id/clock_in`   | User    | Clock-in sleep                | Record my sleep start time     | - Valid user ID is provided                                              |
+|                                     |         |                               |                                | - Clock-in only allowed if the user has no ongoing sleep record          |
+|                                     |         |                               |                                | - Successful clock-in with sleep record created                          |
+| `POST /api/v1/users/:id/clock_out`  | User    | Clock-out sleep               | Record my sleep end time       | - Valid user ID is provided                                              |
+|                                     |         |                               |                                | - Clock-out only allowed if the user has an ongoing sleep record         |
+|                                     |         |                               |                                | - Successful clock-out with sleep record updated                         |
 
 Based on the database schema, the application consists of five main tables: connections, jwt_denylist, profiles, sleeps, and users. The user stories are designed around these tables and their relationships:
 
