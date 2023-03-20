@@ -132,6 +132,7 @@ In this Section, we provide an overview of the RESTful API endpoints that corres
 | POST        | /api/v1/users/signup        | [signup](#signup)               | Sign up (register) a new user          |
 | POST        | /api/v1/users/sign_in       | [sign-in](#sign-in)             | Sign in (login) an existing user       |
 | DELETE      | /api/v1/users/sign_out      | [sign-out](#sign-out)           | Sign out (logout) the current user     |
+| GET         | /api/v1/users               | [get-all-user](#get-all-user)   | Retrieve all user's information        |
 | GET         | /api/v1/users/:id           | [get-user](#get-user)           | Retrieve a specific user's information |
 | PUT         | /api/v1/users/:id           | [update-user](#update-user)     | Update a specific user's information   |
 | POST        | /api/v1/users/:id/follow    | [follow-user](#follow-user)     | Follow another user                    |
